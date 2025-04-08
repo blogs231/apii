@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic HLS.js Player</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+    }
+
+    #fullscreen-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background: rgba(30, 144, 255, 0.8);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    #fullscreen-btn:hover {
+      background: rgba(15, 122, 229, 0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container" id="video-container">
+    <video id="video" controls></video>
+    <button id="fullscreen-btn">⛶ Fullscreen</button>
+  </div>
+
+  <script>
+    // Get URL query parameters
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const video = document.getElementById('video');
+      const videoSrc = getQueryParam('url'); // Get ?url= from query string
+
+      if (!videoSrc) {
+        alert("No video URL provided. Use ?url=YOUR_STREAM_URL");
+        return;
+      }
+
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+        video.addEventListener('loadedmetadata', function () {
+          video.play();
+        });
+      }
+
+      document.getElementById('fullscreen-btn').addEventListener('click', function () {
+        const container = document.getElementById('video-container');
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          if (container.requestFullscreen) {
+            container.requestFullscreen();
+          } else if (container.webkitRequestFullscreen) {
+            container.webkitRequestFullscreen();
+          } else if (container.mozRequestFullScreen) {
+            container.mozRequestFullScreen();
+          } else if (container.msRequestFullscreen) {
+            container.msRequestFullscreen();
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
