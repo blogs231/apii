@@ -58,44 +58,6 @@
       "streams": []
     },
     {
-      "id": "235",
-      "homeTeam": {
-        "name": "Afghanistan U19",
-        "logo": "https://aimages.willow.tv/teamLogos/afghanistan.png"
-      },
-      "awayTeam": {
-        "name": "Nepal U19",
-        "logo": "https://aimages.willow.tv/teamLogos/nepal.png"
-      },
-      "league": "Youth ODI",
-      "sport": "cricket",
-      "date": "2025-04-03",
-      "time": "9:15 AM",
-      "venue": "Mulpani Cricket Ground",
-      "startTime": "2025-04-03T09:15:00",
-      "endTime": "2025-04-03T13:15:00",
-      "streams": []
-    },
-    {
-      "id": "236",
-      "homeTeam": {
-        "name": "Afghanistan U19",
-        "logo": "https://aimages.willow.tv/teamLogos/afghanistan.png"
-      },
-      "awayTeam": {
-        "name": "Nepal U19",
-        "logo": "https://aimages.willow.tv/teamLogos/nepal.png"
-      },
-      "league": "Youth ODI",
-      "sport": "cricket",
-      "date": "2025-04-06",
-      "time": "9:15 AM",
-      "venue": "Mulpani Cricket Ground",
-      "startTime": "2025-04-06T09:15:00",
-      "endTime": "2025-04-06T13:15:00",
-      "streams": []
-    },
-    {
       "id": "237",
       "homeTeam": {
         "name": "Afghanistan U19",
@@ -113,6 +75,76 @@
       "startTime": "2025-04-09T09:15:00",
       "endTime": "2025-04-09T13:15:00",
       "streams": []
-    }
+    },
+      {
+    "id": "IPL-001",
+    "homeTeam": {
+      "name": "Kolkata Knight Riders",
+      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/KKR.avif"
+    },
+    "awayTeam": {
+      "name": "Lucknow Super Giants",
+      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/LSG.avif"
+    },
+    "league": "IPl 2025",
+    "sport": "cricket",
+    "date": "2025-04-09",
+    "time": "3:45 PM",
+    "venue": "Eden Gardens, Kolkata",
+    "startTime": "2025-04-09T15:45:00+05:45",
+    "endTime": "2025-04-09T19:45:00+05:45",
+    "streams": [
+       {
+        "title": "Star Sports Hindi HD",
+        "language": "Hindi",
+        "quality": "HD",
+        "url": "https://www.hotstar.com/in/sports/cricket/ipl"
+      },
+      {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://www.jiocinema.com/sports/ipl"
+      }
+
+      
+    ]
+  },
+  {
+    "id": "IPL-002",
+    "homeTeam": {
+      "name": "Punjab Kings",
+      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/PBKS.avif"
+    },
+    "awayTeam": {
+      "name": "Chennai Super Kings",
+      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/CSK.avif"
+    },
+    "league": "IPL 2025",
+    "sport": "cricket",
+    "date": "2025-04-09",
+    "time": "7:45 PM",
+    "venue": "Maharaja Yadavindra Singh International Cricket Stadium, Chandigarh",
+    "startTime": "2025-04-09T19:45:00+05:45",
+    "endTime": "2025-04-09T23:45:00+05:45",
+    "streams": [
+       {
+        "title": "Star Sports Hindi HD",
+        "language": "Hindi",
+        "quality": "HD",
+        "url": "https://www.hotstar.com/in/sports/cricket/ipl"
+      },
+      {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://www.jiocinema.com/sports/ipl"
+      }
+    ]
+  }
+
+
+
+    
   ]
 }
