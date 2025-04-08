@@ -95,6 +95,12 @@
     "endTime": "2025-04-08T19:45:00+05:45",
     "streams": [
       {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://stenexeb.xyz/4/8870617"
+      },
+      {
         "title": "Star Sports Hindi HD",
         "language": "Hindi",
         "quality": "HD",
@@ -130,11 +136,29 @@
         "quality": "Full HD",
         "url": "https://rips.in/player.php?ch=5"
       },
+      {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://stenexeb.xyz/4/8870617"
+      },
        {
         "title": "T-Sports HD",
         "language": "English",
         "quality": "Full HD",
         "url": "https://blogs231.github.io/apii/hls.html?url=https://www.tbn24.com/api/video/4031_0.m3u8"
+      },
+      {
+        "title": "T-Sports HD",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://tv.mgsportstv.com/api/player/play.php?c=https://live-test.tsports.com/live-02/index.m3u8?hdnts=URLPrefix=aHR0cHM6Ly9saXZlLXRlc3QudHNwb3J0cy5jb20v~Expires=17441111013600~hmac=1ca982646708daacf0daa77afb8595972a9d30ba44a6803c89fefff36b6a5b86"
+      },
+      {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://stenexeb.xyz/4/8870617"
       }
 
       
