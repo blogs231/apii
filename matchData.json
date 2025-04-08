@@ -91,8 +91,8 @@
     "date": "2025-04-09",
     "time": "3:45 PM",
     "venue": "Eden Gardens, Kolkata",
-    "startTime": "2025-04-09T15:45:00+05:45",
-    "endTime": "2025-04-09T19:45:00+05:45",
+    "startTime": "2025-04-08T15:45:00+05:45",
+    "endTime": "2025-04-08T19:45:00+05:45",
     "streams": [
        {
         "title": "Star Sports Hindi HD",
@@ -123,6 +123,12 @@
         "language": "English",
         "quality": "Full HD",
         "url": "https://rips.in/player.php?ch=5"
+      },
+       {
+        "title": "T-Sports HD",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://blogs231.github.io/apii/hls.html?url=https://www.tbn24.com/api/video/4031_0.m3u8"
       }
 
       
@@ -143,8 +149,8 @@
     "date": "2025-04-09",
     "time": "7:45 PM",
     "venue": "Maharaja Yadavindra Singh International Cricket Stadium, Chandigarh",
-    "startTime": "2025-04-09T19:45:00+05:45",
-    "endTime": "2025-04-09T23:45:00+05:45",
+    "startTime": "2025-04-08T19:45:00+05:45",
+    "endTime": "2025-04-08T23:45:00+05:45",
     "streams": [
        {
         "title": "Star Sports Hindi HD",
