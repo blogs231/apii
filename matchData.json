@@ -86,7 +86,7 @@
       "name": "Lucknow Super Giants",
       "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/LSG.avif"
     },
-    "league": "IPl 2025",
+    "league": "IPL 2025",
     "sport": "cricket",
     "date": "2025-04-09",
     "time": "3:45 PM",
@@ -98,13 +98,31 @@
         "title": "Star Sports Hindi HD",
         "language": "Hindi",
         "quality": "HD",
-        "url": "https://www.hotstar.com/in/sports/cricket/ipl"
+        "url": "https://rips.in/player.php?ch=4"
       },
       {
         "title": "JioCinema English",
         "language": "English",
         "quality": "Full HD",
-        "url": "https://www.jiocinema.com/sports/ipl"
+        "url": "https://rips.in/player.php?ch=3"
+      },
+       {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://stenexeb.xyz/4/8870617"
+      },
+       {
+        "title": "Willow TV",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://rips.in/player.php?ch=6"
+      },
+       {
+        "title": "Sky Cricket",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://rips.in/player.php?ch=5"
       }
 
       
