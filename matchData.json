@@ -94,6 +94,12 @@
     "startTime": "2025-04-08T15:45:00+05:45",
     "endTime": "2025-04-08T19:45:00+05:45",
     "streams": [
+      {
+        "title": "Star Sports Hindi HD",
+        "language": "Hindi",
+        "quality": "HD",
+        "url": "https://blogs231.github.io/apii/hls.html?url=https://ee4ee8c03a26.eu-central-1.playback.live-video.net/api/video/v1/eu-central-1.755921704393.channel.LOohfipmCQDP.m3u8"
+      },
        {
         "title": "Star Sports Hindi HD",
         "language": "Hindi",
