@@ -105,20 +105,20 @@
       {
     "id": "IPL-001",
     "homeTeam": {
-      "name": "Kolkata Knight Riders",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/KKR.avif"
+      "name": "GT",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/aTE8G7q-OcAobWvDd6sizQ_96x96.png"
     },
     "awayTeam": {
-      "name": "Lucknow Super Giants",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/LSG.avif"
+      "name": "RR",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/GqIU6xhQAnCpy_Cbr2LZRA_96x96.png"
     },
     "league": "IPL 2025",
     "sport": "cricket",
     "date": "2025-04-09",
-    "time": "3:45 PM",
+    "time": "7:45 PM",
     "venue": "Eden Gardens, Kolkata",
-    "startTime": "2025-04-08T15:45:00+05:45",
-    "endTime": "2025-04-08T19:45:00+05:45",
+    "startTime": "2025-04-09T19:45:00+05:45",
+    "endTime": "2025-04-09T23:45:00+05:45",
     "streams": [
       {
         "title": "JioCinema English",
@@ -190,96 +190,7 @@
       
     ]
   },
-  {
-    "id": "IPL-002",
-    "homeTeam": {
-      "name": "Punjab Kings",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/PBKS.avif"
-    },
-    "awayTeam": {
-      "name": "Chennai Super Kings",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/CSK.avif"
-    },
-    "league": "IPL 2025",
-    "sport": "cricket",
-    "date": "2025-04-09",
-    "time": "7:45 PM",
-    "venue": "Maharaja Yadavindra Singh International Cricket Stadium, Chandigarh",
-    "startTime": "2025-04-08T19:45:00+05:45",
-    "endTime": "2025-04-08T23:45:00+05:45",
-    "streams": [
-       {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://stenexeb.xyz/4/8870617"
-      },
-      {
-        "title": "Star Sports Hindi HD",
-        "language": "Hindi",
-        "quality": "HD",
-        "url": "https://blogs231.github.io/apii/hls.html?url=https://ee4ee8c03a26.eu-central-1.playback.live-video.net/api/video/v1/eu-central-1.755921704393.channel.LOohfipmCQDP.m3u8"
-      },
-       {
-        "title": "Star Sports Hindi HD",
-        "language": "Hindi",
-        "quality": "HD",
-        "url": "https://user4580.ifrem.net/iframe/frame.php"
-      },
-      {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://mgsportstv.pages.dev/?url=https://funn-g1163.huibo.tv/DGI/H2102/chunks.m3u8?p=49&cf=1744034481&d=&ip=104.28.251.60&e=1744935081&h=be27cf6bc189c291a08c7ad5cd54d88e"
-      },
-       {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://stenexeb.xyz/4/8870617"
-      },
-       {
-        "title": "Willow TV",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://rips.in/player.php?ch=6"
-      },
-       {
-        "title": "Sky Cricket",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://rips.in/player.php?ch=5"
-      },
-      {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://stenexeb.xyz/4/8870617"
-      },
-       {
-        "title": "T-Sports HD",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://blogs231.github.io/apii/hls.html?url=https://www.tbn24.com/api/video/4031_0.m3u8"
-      },
-      {
-        "title": "T-Sports HD",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://tv.mgsportstv.com/api/player/play.php?c=https://live-test.tsports.com/live-02/index.m3u8?hdnts=URLPrefix=aHR0cHM6Ly9saXZlLXRlc3QudHNwb3J0cy5jb20v~Expires=17441111013600~hmac=1ca982646708daacf0daa77afb8595972a9d30ba44a6803c89fefff36b6a5b86"
-      },
-      {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://stenexeb.xyz/4/8870617"
-      }
-
-    ]
-  }
-
-
-
-    
+ 
+  
   ]
 }
