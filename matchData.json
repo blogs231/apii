@@ -111,20 +111,20 @@
 {
     "id": "IPL-001",
     "homeTeam": {
-      "name": "RCB",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/xUS54-BA0dFZPMtbCiHkzQ_96x96.png"
+      "name": "CSK",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/5G8eFjkPKNalIgL2FOtovg_96x96.png"
     },
     "awayTeam": {
-      "name": "DC",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/HzUX6_c8j7pwBCetmct2FQ_96x96.png"
+      "name": "KKR",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/eDkEYCyMSAHSQFjQNOQF1w_96x96.png"
     },
     "league": "IPL 2025",
     "sport": "cricket",
     "date": "2025-04-10",
     "time": "7:45 PM",
-    "venue": "M. Chinnaswamy Stadium",
-    "startTime": "2025-04-10T19:45:00+05:45",
-    "endTime": "2025-04-10T23:45:00+05:45",
+    "venue": "MA Chidambaram Stadium",
+    "startTime": "2025-04-11T19:45:00+05:45",
+    "endTime": "2025-04-11T23:45:00+05:45",
     "streams": [
       {
         "title": "JioCinema English",
