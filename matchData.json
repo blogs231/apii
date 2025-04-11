@@ -148,7 +148,7 @@
         "title": "JioCinema English",
         "language": "English",
         "quality": "Full HD",
-        "url": "https://mgsportstv.pages.dev/?url=https://funn-g1163.huibo.tv/DGI/H2102/chunks.m3u8?p=49&cf=1744034481&d=&ip=104.28.251.60&e=1744935081&h=be27cf6bc189c291a08c7ad5cd54d88e"
+        "url": "https://wikisport.best/strm/t11.php"
       },
        {
         "title": "JioCinema English",
@@ -166,7 +166,7 @@
         "title": "Sky Cricket",
         "language": "English",
         "quality": "Full HD",
-        "url": "https://rips.in/player.php?ch=5"
+        "url": "https://rips.in/player.php?ch=4"
       },
       {
         "title": "JioCinema English",
@@ -213,7 +213,42 @@
   "venue": "Rawalpindi Cricket Stadium",
   "startTime": "2025-04-11T21:15:00",
   "endTime": "2025-04-12T01:15:00",
-  "streams": []
+  "streams": [
+    {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://tinyurl.com/ads-tv"
+      },
+      {
+        "title": "Star Sports Hindi HD",
+        "language": "Hindi",
+        "quality": "HD",
+        "url": "https://cdn.crichdplays.ru/embed2.php?id=skymix"
+      },
+       {
+        "title": "Star Sports Hindi HD",
+        "language": "Hindi",
+        "quality": "HD",
+        "url": "https://rips.in/player.php?ch=1"
+      },
+      {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://rips.in/player.php?ch=2"
+      },
+       {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://tinyurl.com/ads-tv"
+      }
+
+
+
+    
+  ]
 }
 
  
