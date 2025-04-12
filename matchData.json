@@ -225,7 +225,67 @@
         "language": "English",
         "quality": "Full HD",
         "url": "https://tinyurl.com/ads-tv"
-      } 
+      },
+      {
+        "title": "Star Sports Hindi HD",
+        "language": "Hindi",
+        "quality": "HD",
+        "url": "https://mgsportstv.pages.dev/?url=https://live-test.tsports.com/live-02/index.m3u8?hdnts=URLPrefix=aHR0cHM6Ly9saXZlLXRlc3QudHNwb3J0cy5jb20v~Expires=17436002443600~hmac=1fdfe8ddcbf56e3eefcb254f9facdca9e6fce112f92dcf335b77a9a930116421"
+      },
+       {
+        "title": "Star Sports Hindi HD",
+        "language": "Hindi",
+        "quality": "HD",
+        "url": "https://user4580.ifrem.net/iframe/frame.php"
+      },
+      {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://wikisport.best/strm/t11.php"
+      },
+       {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://tinyurl.com/ads-tv"
+      },
+       {
+        "title": "Willow TV",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://rips.in/player.php?ch=6"
+      },
+       {
+        "title": "Sky Cricket",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://rips.in/player.php?ch=4"
+      },
+      {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://tinyurl.com/ads-tv"
+      },
+       {
+        "title": "T-Sports HD",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://blogs231.github.io/apii/hls.html?url=https://www.tbn24.com/api/video/4031_0.m3u8"
+      },
+      {
+        "title": "T-Sports HD",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://mgsportstv.pages.dev/?url=https://live-test.tsports.com/live-02/index.m3u8?hdnts=URLPrefix=aHR0cHM6Ly9saXZlLXRlc3QudHNwb3J0cy5jb20v~Expires=17436002443600~hmac=1fdfe8ddcbf56e3eefcb254f9facdca9e6fce112f92dcf335b77a9a930116421"
+      },
+      {
+        "title": "JioCinema English",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://tinyurl.com/ads-tv"
+      }
     ]
   },
     
