@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>नेपाली पात्रो २०८२</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    :root {
+      --primary-color: #9c27b0;
+      --secondary-color: #673ab7;
+      --accent-color: #e1bee7;
+      --today-color: #f44336;
+      --text-dark: #212121;
+      --text-light: #f9f9f9;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 100%);
+      min-height: 100vh;
+      padding: 20px 0;
+    }
+    
+    .calendar-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .calendar-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    }
+    
+    .calendar-header {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .calendar-title {
+      color: var(--primary-color);
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    .month-navigation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 25px 0;
+    }
+    
+    .month-year {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .nav-btn {
+      background-color: white;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .nav-btn:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    /* Navigation icons */
+    .nav-icon {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      position: relative;
+    }
+
+    .icon-left::before {
+      content: "◀";
+      font-size: 12px;
+    }
+
+    .icon-right::before {
+      content: "▶";
+      font-size: 12px;
+    }
+    
+    .calendar-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 8px;
+    }
+    
+    .calendar-table th {
+      background-color: var(--secondary-color);
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+    
+    .calendar-table td {
+      height: 70px;
+      width: 70px;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 22px;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .calendar-table td:not(.empty):hover {
+      background-color: var(--accent-color);
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    
+    td.empty {
+      background-color: transparent;
+      border: none;
+    }
+    
+    .today {
+      background-color: var(--today-color) !important;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .calendar-footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #757575;
+    }
+    
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .calendar-container {
+        padding: 15px;
+        margin: 10px;
+      }
+      
+      .calendar-table td {
+        height: 50px;
+        width: 50px;
+        font-size: 18px;
+      }
+      
+      .month-year {
+        font-size: 24px;
+      }
+    }
+    
+    /* Festivals and Events */
+    .event-dot {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 6px;
+      width: 6px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+    }
+    
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="container calendar-container fade-in">
+    <div class="calendar-header">
+      <h1 class="calendar-title text-center">नेपाली पात्रो २०८२</h1>
+      
+      <div class="month-navigation">
+        <button class="nav-btn" onclick="prevMonth()">
+          <span class="nav-icon icon-left"></span> अघिल्लो महिना
+        </button>
+        <h3 id="monthYear" class="month-year mb-0"></h3>
+        <button class="nav-btn" onclick="nextMonth()">
+          अर्को महिना <span class="nav-icon icon-right"></span>
+        </button>
+      </div>
+    </div>
+    
+    <table class="calendar-table">
+      <thead>
+        <tr>
+          <th>आइत</th>
+          <th>सोम</th>
+          <th>मंगल</th>
+          <th>बुध</th>
+          <th>बिही</th>
+          <th>शुक्र</th>
+          <th>शनि</th>
+        </tr>
+      </thead>
+      <tbody id="calendarBody">
+        <!-- Calendar will be injected here -->
+      </tbody>
+    </table>
+    
+    <div class="calendar-footer">
+      <p>© २०८२ नेपाली पात्रो</p>
+    </div>
+  </div>
+
+  <script>
+    // Pre-define month names as an array of strings to avoid encoding issues
+    const nepaliMonthNames = [
+      "बैशाख", "जेठ", "असार", "साउन", "भदौ", "आश्विन", 
+      "कार्तिक", "मंसिर", "पुष", "माघ", "फागुन", "चैत"
+    ];
+    
+    // Define months with indices instead of direct names
+    const months = [
+      { monthIndex: 0, days: 31, festivals: {1: "नयाँ वर्ष", 11: "लोकतन्त्र दिवस"} },
+      { monthIndex: 1, days: 31, festivals: {15: "गणतन्त्र दिवस"} },
+      { monthIndex: 2, days: 32, festivals: {15: "धान दिवस"} },
+      { monthIndex: 3, days: 31, festivals: {16: "नाग पञ्चमी"} },
+      { monthIndex: 4, days: 31, festivals: {5: "जनै पूर्णिमा", 23: "तीज"} },
+      { monthIndex: 5, days: 31, festivals: {10: "दशैं सुरु", 15: "विजया दशमी"} },
+      { monthIndex: 6, days: 30, festivals: {2: "दिपावाली", 4: "भाई टीका"} },
+      { monthIndex: 7, days: 29, festivals: {} },
+      { monthIndex: 8, days: 30, festivals: {1: "क्रिसमस"} },
+      { monthIndex: 9, days: 29, festivals: {15: "माघे संक्रान्ति"} },
+      { monthIndex: 10, days: 30, festivals: {20: "फागु पूर्णिमा"} },
+      { monthIndex: 11, days: 30, festivals: {30: "चैते दशैं"} }
+    ];
+
+    const nepaliDigits = ['०','१','२','३','४','५','६','७','८','९'];
+    let startDays = [];
+    let currentMonth = 0;
+    let todayNepali = { month: 0, day: 15 }; // Example: Today is Baisakh 15
+
+    function calculateStartDays() {
+      startDays = [];
+      let day = 1; // Baishakh 1 starts on Monday (1)
+      for (let i = 0; i < months.length; i++) {
+        startDays.push(day);
+        day = (day + months[i].days) % 7;
+      }
+    }
+
+    function getMonthName(monthIndex) {
+      return nepaliMonthNames[monthIndex];
+    }
+
+    function convertToNepaliNumber(num) {
+      return String(num).split('').map(d => nepaliDigits[parseInt(d)]).join('');
+    }
+
+    function renderCalendar(monthIdx) {
+      const month = months[monthIdx];
+      const daysInMonth = month.days;
+      const startDay = startDays[monthIdx];
+      
+      const monthHeading = document.getElementById("monthYear");
+      // Use pre-defined safe strings
+      const nepaliMonth = getMonthName(month.monthIndex);
+      const nepaliYear = "२०८२";
+      monthHeading.textContent = nepaliMonth + " " + nepaliYear;
+      
+      const tbody = document.getElementById("calendarBody");
+      tbody.innerHTML = "";
+      
+      let date = 1;
+      for (let i = 0; i < 6; i++) {
+        let row = document.createElement("tr");
+        for (let j = 0; j < 7; j++) {
+          let cell = document.createElement("td");
+          if (i === 0 && j < startDay) {
+            cell.classList.add("empty");
+          } else if (date <= daysInMonth) {
+            // Check if it's today
+            if (monthIdx === todayNepali.month && date === todayNepali.day) {
+              cell.classList.add("today");
+            }
+            
+            // Use directly created Nepali digits
+            cell.textContent = convertToNepaliNumber(date);
+            
+            // Add festival indicator if applicable
+            if (month.festivals[date]) {
+              const eventDot = document.createElement("div");
+              eventDot.classList.add("event-dot");
+              cell.appendChild(eventDot);
+              cell.title = month.festivals[date]; // Add tooltip
+            }
+            
+            date++;
+          } else {
+            cell.classList.add("empty");
+          }
+          row.appendChild(cell);
+        }
+        tbody.appendChild(row);
+        if (date > daysInMonth) break;
+      }
+    }
+
+    function prevMonth() {
+      if (currentMonth > 0) {
+        currentMonth--;
+        renderCalendar(currentMonth);
+      }
+    }
+
+    function nextMonth() {
+      if (currentMonth < 11) {
+        currentMonth++;
+        renderCalendar(currentMonth);
+      }
+    }
+
+    // Initialize
+    calculateStartDays();
+    
+    // Make sure the calendar initializes after DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      renderCalendar(currentMonth);
+    });
+    
+    // As a backup, also run initialization directly (for some platforms)
+    calculateStartDays();
+    renderCalendar(currentMonth);
+  </script>
+</body>
+</html>
