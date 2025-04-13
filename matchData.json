@@ -136,20 +136,20 @@
 {
     "id": "IPL-001",
     "homeTeam": {
-      "name": "LSG",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/82AP_EDcTMdcVlCqM4NgMg_96x96.png"
+      "name": "RR",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/GqIU6xhQAnCpy_Cbr2LZRA_96x96.png"
     },
     "awayTeam": {
-      "name": "GT",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/aTE8G7q-OcAobWvDd6sizQ_96x96.png"
+      "name": "RCB",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/xUS54-BA0dFZPMtbCiHkzQ_96x96.png"
     },
     "league": "IPL 2025",
     "sport": "cricket",
-    "date": "2025-04-12",
+    "date": "2025-04-13",
     "time": "15:45 PM",
-    "venue": "Ekana Cricket Stadium B Ground",
-    "startTime": "2025-04-12T15:45:00+05:45",
-    "endTime": "2025-04-12T19:45:00+05:45",
+    "venue": "Sawai Mansingh Stadium",
+    "startTime": "2025-04-13T15:45:00+05:45",
+    "endTime": "2025-04-13T19:45:00+05:45",
     "streams": [
       {
         "title": "JioCinema English",
@@ -224,20 +224,20 @@
     {
     "id": "IPL-002",
     "homeTeam": {
-      "name": "SHR",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/W0OCBYc05c5MFMrctF62kg_96x96.png"
+      "name": "DC",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/HzUX6_c8j7pwBCetmct2FQ_96x96.png"
     },
     "awayTeam": {
-      "name": "PBKS",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/XUAb4iA3XozYbH_cXQCryQ_96x96.png"
+      "name": "MI",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/HmiWb77BmJDs6sHvn77v_Q_96x96.png"
     },
     "league": "IPL 2025",
     "sport": "cricket",
-    "date": "2025-04-12",
+    "date": "2025-04-13",
     "time": "7:45 PM",
-    "venue": "Rajiv Gandhi International Stadium",
-    "startTime": "2025-04-12T19:45:00+05:45",
-    "endTime": "2025-04-12T23:45:00+05:45",
+    "venue": "Arun Jaitley Stadium",
+    "startTime": "2025-04-13T19:45:00+05:45",
+    "endTime": "2025-04-13T23:45:00+05:45",
     "streams": [
       {
         "title": "JioCinema English",
