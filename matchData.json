@@ -311,8 +311,8 @@
    {
     "id": "245",
     "homeTeam": {
-      "name": "Peshawar Zalmi",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/D95XWUkpoPaZIes4VFXQ5A_96x96.png"
+      "name": "Lahore Qalandars",
+      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/Y8DhCclNws0EB1HzlLqYpA_96x96.png"
     },
     "awayTeam": {
       "name": "Quetta Gladiators",
@@ -320,61 +320,11 @@
     },
     "league": "PSL 2025",
     "sport": "cricket",
-    "date": "2025-04-12",
-    "time": "4:15 PM",
-    "venue": "Rawalpindi Cricket Stadium",
-    "startTime": "2025-04-12T16:15:00+05:45",
-    "endTime": "2025-04-12T20:45:00+05:45",
-    "streams": [
-       {
-        "title": "A Sports HD",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://tinyurl.com/ads-tv"
-      },
-      {
-        "title": "PTV Sports",
-        "language": "Hindi",
-        "quality": "HD",
-        "url": "https://cdn.crichdplays.ru/embed2.php?id=skymix"
-      },
-      {
-        "title": "Willow TV USA",
-        "language": "Hindi",
-        "quality": "HD",
-        "url": "https://rips.in/player.php?ch=1"
-      },
-      {
-        "title": "MYCO",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://rips.in/player.php?ch=2"
-      },
-      {
-        "title": "T-Sports HD",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://tinyurl.com/ads-tv"
-      }
-    ]
-  },
-  {
-    "id": "246",
-    "homeTeam": {
-      "name": "Karachi Kings",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/Vd8aQMIGZWoA_7yVYUqgWA_96x96.png"
-    },
-    "awayTeam": {
-      "name": "Multan Sultans",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/JhIIDY1Q3ElxrJSCHR-ZVg_96x96.png"
-    },
-    "league": "PSL 2025",
-    "sport": "cricket",
-    "date": "2025-04-12",
+    "date": "2025-04-13",
     "time": "8:45 PM",
-    "venue": "National Stadium, Karachi",
-    "startTime": "2025-04-12T20:45:00+05:45",
-    "endTime": "2025-04-13T02:45:00+05:45",
+    "venue": "Rawalpindi Cricket Stadium",
+    "startTime": "2025-04-13T20:45:00+05:45",
+    "endTime": "2025-04-14T02:45:00+05:45",
     "streams": [
        {
         "title": "A Sports HD",
@@ -408,7 +358,6 @@
       }
     ]
   }
-
  
   
   ]
