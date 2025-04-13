@@ -22,7 +22,7 @@
         "title": "STYX Sports",
         "language": "English",
         "quality": "Full HD",
-        "url": "https://blogs231.github.io/apii/yt.html?id="
+        "url": "https://blogs231.github.io/apii/yt.html?id=i-yafe5z8G0"
       },
       {
         "title": "CHK YT",
@@ -34,7 +34,7 @@
         "title": "World Wide",
         "language": "English",
         "quality": "Full HD",
-        "url": "https://blogs231.github.io/apii/yt.html?id="
+        "url": "https://blogs231.github.io/apii/yt.html?id=i-yafe5z8G0"
       }
       ]
     },
@@ -48,14 +48,33 @@
       "name": "UAE U19",
       "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/uae.png"
     },
-    "league": "ODI Series in Nepal",
+    "league": "U19 WC AQ 2025",
     "sport": "cricket",
     "date": "2025-04-13",
     "time": "9:30 AM",
     "venue": "Lower Mulpani",
     "startTime": "2025-04-13T09:30:00",
     "endTime": "2025-04-13T116:30:00",
-    "streams": []
+    "streams": [
+      {
+        "title": "CAN YT",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://blogs231.github.io/apii/yt.html?id=EYStphNzi7I"
+      },
+      {
+        "title": "KaSin TV",
+        "language": "Hindi",
+        "quality": "HD",
+        "url": "https://tinyurl.com/ads-tv"
+      },
+        {
+        "title": "World Wide",
+        "language": "English",
+        "quality": "Full HD",
+        "url": "https://blogs231.github.io/apii/yt.html?id=EYStphNzi7I"
+      }
+    ]
   },
   {
     "id": "235",
@@ -67,7 +86,7 @@
       "name": "Nepal U19",
       "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/nep.png"
     },
-    "league": "ODI Series in Nepal",
+    "league": "U19 WC AQ 2025",
     "sport": "cricket",
     "date": "2025-04-14",
     "time": "9:30 AM",
@@ -86,7 +105,7 @@
       "name": "Nepal U19",
       "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/nep.png"
     },
-    "league": "ODI Series in Nepal",
+    "league": "U19 WC AQ 2025",
     "sport": "cricket",
     "date": "2025-04-16",
     "time": "9:30 AM",
@@ -105,7 +124,7 @@
       "name": "Afghanistan U19",
       "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/afg.png"
     },
-    "league": "ODI Series in Nepal",
+    "league": "U19 WC AQ 2025",
     "sport": "cricket",
     "date": "2025-04-19",
     "time": "9:30 AM",
