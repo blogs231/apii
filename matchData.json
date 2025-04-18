@@ -1,24 +1,24 @@
 {
   "matches": [
   {
-    "id": "236",
+    "id": "237",
     "homeTeam": {
-      "name": "Hong Kong U19",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/hk.png"
-    },
-    "awayTeam": {
       "name": "Nepal U19",
       "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/nep.png"
     },
+    "awayTeam": {
+      "name": "Afghanistan U19",
+      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/afg.png"
+    },
     "league": "U19 WC AQ 2025",
     "sport": "cricket",
-    "date": "2025-04-16",
+    "date": "2025-04-19",
     "time": "9:30 AM",
     "venue": "Lower Mulpani",
-    "startTime": "2025-04-16T09:30:00",
-    "endTime": "2025-04-16T16:30:00",
+    "startTime": "2025-04-19T09:30:00",
+    "endTime": "2025-04-19T16:30:00",
     "streams": [
-       {
+      {
         "title": "CAN YT",
         "language": "English",
         "quality": "Full HD",
@@ -37,25 +37,6 @@
         "url": "https://blogs231.github.io/apii/yt.html?id=hGdwUrRwgUQ"
       }
     ]
-  },
-  {
-    "id": "237",
-    "homeTeam": {
-      "name": "Nepal U19",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/nep.png"
-    },
-    "awayTeam": {
-      "name": "Afghanistan U19",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/afg.png"
-    },
-    "league": "U19 WC AQ 2025",
-    "sport": "cricket",
-    "date": "2025-04-19",
-    "time": "9:30 AM",
-    "venue": "Lower Mulpani",
-    "startTime": "2025-04-19T09:30:00",
-    "endTime": "2025-04-19T16:30:00",
-    "streams": []
   },
 {
     "id": "IPL-001",
@@ -85,7 +66,7 @@
         "title": "Star Sports Hindi HD",
         "language": "Hindi",
         "quality": "HD",
-        "url": "https://mgsportstv.pages.dev/?url=https://bdixtv24.pro/live.php?id=9b4b3941986a&e=.m3u8"
+        "url": "https://amitb3669.github.io/allinonereborn/str_sports_hindi.html"
       },
        {
         "title": "Star Sports Hindi HD",
@@ -97,7 +78,7 @@
         "title": "JioCinema English",
         "language": "English",
         "quality": "Full HD",
-        "url": "https://wikisport.best/strm/t11.php"
+        "url": "https://cdn.crichdplays.ru/embed2.php?id=willow"
       },
        {
         "title": "JioCinema English",
@@ -133,7 +114,7 @@
         "title": "T-Sports HD",
         "language": "English",
         "quality": "Full HD",
-        "url": "https://mgsportstv.pages.dev/?url=https://bdixtv24.pro/live.php?id=9b4b3941986a&e=.m3u8"
+        "url": "https://cdn.crichdplays.ru/embed2.php?id=starsp3"
       },
       {
         "title": "JioCinema English",
