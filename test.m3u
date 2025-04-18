@@ -1,0 +1,16 @@
+#EXTM3U
+
+#EXTINF:-1 group-title="LIVE" tvg-chno="1" tvg-id="channel1" tvg-logo="https://www.sportspro.com/wp-content/uploads/2023/03/Star-Sports.webp", Channel One
+https://wowza1.leisertv.com/live/skysportscrickethd.stream/playlist.m3u8
+
+#EXTINF:-1 group-title="LIVE" tvg-chno="2" tvg-id="channel2" tvg-logo="https://www.sportspro.com/wp-content/uploads/2023/03/Star-Sports.webp", Channel Two
+https://cdn.vaanam24.com/STARSPORTSTAMIL/index.m3u8
+
+#EXTINF:-1 group-title="LIVE" tvg-chno="3" tvg-id="channel3" tvg-logo="https://www.sportspro.com/wp-content/uploads/2023/03/Star-Sports.webp", Channel Three
+https://003.fclplayer.net/live/csstream2/playlist.m3u8?id=1002&pk=956347d5b1cc431914d5dd0ac6623bd1855d26afb66480ad15fc45599ea8dbfd
+
+#EXTINF:-1 group-title="LIVE" tvg-chno="4" tvg-id="channel4" tvg-logo="https://www.sportspro.com/wp-content/uploads/2023/03/Star-Sports.webp", Channel Four
+https://004.fclplayer.net/live/csstream1/chunklist.m3u8?vidictid=201966747938&id=1001&pk=956347d5b1cc431914d5dd0ac6623bd1855d26afb66480ad15fc45599ea8dbfd
+
+#EXTINF:-1 group-title="LIVE" tvg-chno="5" tvg-id="channel5" tvg-logo="https://www.sportspro.com/wp-content/uploads/2023/03/Star-Sports.webp", Channel Five
+https://004.fclplayer.net/live/csstream1/chunklist.m3u8?vidictid=201966747938&id=1001&pk=956347d5b1cc431914d5dd0ac6623bd1855d26afb66480ad15fc45599ea8dbfd
