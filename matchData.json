@@ -1,130 +1,112 @@
 {
   "matches": [
-{
-  "id": "246",
-  "homeTeam": {
-    "name": "Bangladesh",
-    "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/zimvsbanTEST.png"
-  },
-  "awayTeam": {
-    "name": "Zimbabwe",
-    "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/zimvsbanTEST.png"
-  },
-  "league": "ZIM vs BAN 2025",
-  "sport": "cricket",
-  "date": "2025-04-20",
-  "time": "9:45 AM",
-  "venue": "Sylhet International Cricket Stadium, Sylhet, Bangladesh",
-  "startTime": "2025-04-20T09:45:00+06:00",
-  "endTime": "2025-05-02T17:00:00+06:00",
-  "streams": [
-    {
-      "title": "T-Sports HD",
-      "language": "English",
-      "quality": "Full HD",
-      "url": "https://tinyurl.com/ads-tv"
+ {
+      "id": "246",
+      "homeTeam": {
+        "name": "Bangladesh",
+        "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/zimvsbanTEST.png"
+      },
+      "awayTeam": {
+        "name": "Zimbabwe",
+        "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/zimvsbanTEST.png"
+      },
+      "league": "ZIM vs BAN 2025",
+      "sport": "cricket",
+      "date": "2025-04-20",
+      "time": "9:45 AM",
+      "venue": "Sylhet International Cricket Stadium, Sylhet, Bangladesh",
+      "startTime": "2025-04-20T09:45:00+06:00",
+      "endTime": "2025-05-02T17:00:00+06:00",
+      "streams": [
+        {
+          "title": "T-Sports HD",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://tinyurl.com/ads-tv"
+        },
+        {
+          "title": "Gazi TV (GTV)",
+          "language": "Bengali",
+          "quality": "HD",
+          "url": "https://cdn.crichdplays.ru/embed2.php?id=gtv"
+        },
+        {
+          "title": "MYCO",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://rips.in/player.php?ch=2"
+        }
+      ]
     },
-    {
-      "title": "Gazi TV (GTV)",
-      "language": "Bengali",
-      "quality": "HD",
-      "url": "https://cdn.crichdplays.ru/embed2.php?id=gtv"
-    },
-    {
-      "title": "MYCO",
-      "language": "English",
-      "quality": "Full HD",
-      "url": "https://rips.in/player.php?ch=2"
-    }
-  ]
-},
     
-{
-    "id": "IPL-001",
-    "homeTeam": {
-      "name": "IPL 2025",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/ipl.png"
+ {
+      "id": "IPL-001",
+      "homeTeam": {
+        "name": "IPL 2025",
+        "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/ipl.png"
+      },
+      "awayTeam": {
+        "name": "IPL 2025",
+        "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/ipl.png"
+      },
+      "league": "IPL 2025",
+      "sport": "cricket",
+      "date": "2025-04-19",
+      "time": "3:45 PM",
+      "venue": "IPL 2025",
+      "startTime": "2025-04-19T15:45:00+05:45",
+      "endTime": "2025-05-25T23:45:00+05:45",
+      "streams": [
+        {
+          "title": "JioCinema English",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://tinyurl.com/ads-tv"
+        },
+        {
+          "title": "Star Sports Hindi HD",
+          "language": "Hindi",
+          "quality": "HD",
+          "url": "https://cdn.crichdplays.ru/embed2.php?id=starsp2"
+        },
+        {
+          "title": "Star Sports Hindi HD",
+          "language": "Hindi",
+          "quality": "HD",
+          "url": "https://user4580.ifrem.net/iframe/frame.php"
+        },
+        {
+          "title": "JioCinema HINDI",
+          "language": "HINDI",
+          "quality": "Full HD",
+          "url": "https://fembedbuddy.top/hembedplayer/csstream2/1/960/540"
+        },
+        {
+          "title": "Willow TV",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://rips.in/player.php?ch=6"
+        },
+        {
+          "title": "Sky Cricket",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://fembedbuddy.top/hembedplayer/csstream1/1/960/540"
+        },
+        {
+          "title": "T-Sports HD",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://blogs231.github.io/apii/hls.html?url=https://www.tbn24.com/api/video/4031_0.m3u8"
+        },
+        {
+          "title": "T-Sports HD",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://cdn.crichdplays.ru/embed2.php?id=osncric"
+        }
+      ]
     },
-    "awayTeam": {
-      "name": "IPL 2025",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/ipl.png"
-    },
-    "league": "IPL 2025",
-    "sport": "cricket",
-    "date": "2025-04-19",
-    "time": "3:45 PM",
-    "venue": "IPL 2025",
-    "startTime": "2025-04-19T15:45:00+05:45",
-    "endTime": "2025-05-25T23:45:00+05:45",
-    "streams": [
-      {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://tinyurl.com/ads-tv"
-      },
-      {
-        "title": "Star Sports Hindi HD",
-        "language": "Hindi",
-        "quality": "HD",
-        "url": "https://cdn.crichdplays.ru/embed2.php?id=starsp2"
-      },
-       {
-        "title": "Star Sports Hindi HD",
-        "language": "Hindi",
-        "quality": "HD",
-        "url": "https://user4580.ifrem.net/iframe/frame.php"
-      },
-      {
-        "title": "JioCinema HINDI",
-        "language": "HINDI",
-        "quality": "Full HD",
-        "url": "https://fembedbuddy.top/hembedplayer/csstream2/1/960/540"
-      },
-       {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://tinyurl.com/ads-tv"
-      },
-       {
-        "title": "Willow TV",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://rips.in/player.php?ch=6"
-      },
-       {
-        "title": "Sky Cricket",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://fembedbuddy.top/hembedplayer/csstream1/1/960/540"
-      },
-      {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://tinyurl.com/ads-tv"
-      },
-       {
-        "title": "T-Sports HD",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://blogs231.github.io/apii/hls.html?url=https://www.tbn24.com/api/video/4031_0.m3u8"
-      },
-      {
-        "title": "T-Sports HD",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://cdn.crichdplays.ru/embed2.php?id=osncric"
-      },
-      {
-        "title": "JioCinema English",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://tinyurl.com/ads-tv"
-      }
-    ]
-  },
    {
     "id": "245",
     "homeTeam": {
@@ -405,24 +387,38 @@
       }
     ]
   },
-  {
-    "id": "401",
-    "homeTeam": {
-      "name": "England Women",
-      "logo": "https://cricketvectors.akamaized.net/Teams/1L.png"
+   {
+      "id": "401",
+      "homeTeam": {
+        "name": "England Women",
+        "logo": "https://cricketvectors.akamaized.net/Teams/1L.png"
+      },
+      "awayTeam": {
+        "name": "West Indies Women",
+        "logo": "https://cricketvectors.akamaized.net/Teams/8Y.png"
+      },
+      "league": "WI-W vs ENG-W 2025",
+      "sport": "cricket",
+      "date": "2025-05-21",
+      "time": "11:15 PM",
+      "venue": "St Lawrence Ground, Canterbury, England",
+      "startTime": "2025-05-21T23:15:00+05:45",
+      "endTime": "2025-05-22T05:15:00+05:45",
+      "streams": [
+        {
+          "title": "Sky Sports",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://tinyurl.com/sky-sports"
+        },
+        {
+          "title": "Willow TV",
+          "language": "English",
+          "quality": "HD",
+          "url": "https://tinyurl.com/willow-tv"
+        }
+      ]
     },
-    "awayTeam": {
-      "name": "West Indies Women",
-      "logo": "https://cricketvectors.akamaized.net/Teams/8Y.png"
-    },
-    "league": "WI-W vs ENG-W 2025",
-    "sport": "cricket",
-    "date": "2025-05-21",
-    "time": "11:15 PM",
-    "venue": "St Lawrence Ground, Canterbury, England",
-    "startTime": "2025-05-21T23:15:00+05:45",
-    "endTime": "2025-05-22T05:15:00+05:45",
-  },
   {
     "id": "402",
     "homeTeam": {
