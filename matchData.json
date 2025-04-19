@@ -1,60 +1,22 @@
 {
   "matches": [
-  {
-    "id": "237",
-    "homeTeam": {
-      "name": "Nepal U19",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/nep.png"
-    },
-    "awayTeam": {
-      "name": "Afghanistan U19",
-      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/afg.png"
-    },
-    "league": "U19 WC AQ 2025",
-    "sport": "cricket",
-    "date": "2025-04-19",
-    "time": "9:30 AM",
-    "venue": "Lower Mulpani",
-    "startTime": "2025-04-19T09:30:00",
-    "endTime": "2025-04-19T16:30:00",
-    "streams": [
-      {
-        "title": "CAN YT",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://blogs231.github.io/apii/yt.html?id=hGdwUrRwgUQ"
-      },
-      {
-        "title": "KaSin TV",
-        "language": "Hindi",
-        "quality": "HD",
-        "url": "https://tinyurl.com/ads-tv"
-      },
-        {
-        "title": "World Wide",
-        "language": "English",
-        "quality": "Full HD",
-        "url": "https://blogs231.github.io/apii/yt.html?id=hGdwUrRwgUQ"
-      }
-    ]
-  },
 {
     "id": "IPL-001",
     "homeTeam": {
-      "name": "RCB",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/xUS54-BA0dFZPMtbCiHkzQ_96x96.png"
+      "name": "IPL 2025",
+      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/ipl.png"
     },
     "awayTeam": {
-      "name": "PBKS",
-      "logo": "https://ssl.gstatic.com/onebox/media/sports/logos/XUAb4iA3XozYbH_cXQCryQ_96x96.png"
+      "name": "IPL 2025",
+      "logo": "https://upload-cloudfalre-r2-assets.omrecipes.dev/ipl.png"
     },
     "league": "IPL 2025",
     "sport": "cricket",
-    "date": "2025-04-18",
-    "time": "7:45 PM",
-    "venue": "M. Chinnaswamy Stadium",
-    "startTime": "2025-04-18T19:45:00+05:45",
-    "endTime": "2025-04-18T23:45:00+05:45",
+    "date": "2025-04-19",
+    "time": "3:45 PM",
+    "venue": "IPL 2025",
+    "startTime": "2025-04-19T15:45:00+05:45",
+    "endTime": "2025-05-25T23:45:00+05:45",
     "streams": [
       {
         "title": "JioCinema English",
@@ -66,7 +28,7 @@
         "title": "Star Sports Hindi HD",
         "language": "Hindi",
         "quality": "HD",
-        "url": "https://mgsportstv.pages.dev/?url=https://cdn.vaanam24.com/STARSPORTSTAMIL/index.m3u8"
+        "url": "https://cdn.crichdplays.ru/embed2.php?id=starsp2"
       },
        {
         "title": "Star Sports Hindi HD",
@@ -114,7 +76,7 @@
         "title": "T-Sports HD",
         "language": "English",
         "quality": "Full HD",
-        "url": "https://mgsportstv.pages.dev/?url=https://wowza1.leisertv.com/live/skysportscrickethd.stream/playlist.m3u8"
+        "url": "https://cdn.crichdplays.ru/embed2.php?id=osncric"
       },
       {
         "title": "JioCinema English",
@@ -122,8 +84,6 @@
         "quality": "Full HD",
         "url": "https://tinyurl.com/ads-tv"
       }
-
-      
     ]
   },
    {
