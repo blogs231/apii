@@ -174,7 +174,6 @@
     "venue": "R. Premadasa International Cricket Stadium, Colombo, Sri Lanka",
     "startTime": "2025-04-27T10:15:00+05:30",
     "endTime": "2025-04-27T16:15:00+05:30",
-    "format": "ODI",
     "streams": [
       {
         "title": "Star Sports",
@@ -207,7 +206,6 @@
     "venue": "R. Premadasa International Cricket Stadium, Colombo, Sri Lanka",
     "startTime": "2025-04-29T10:15:00+05:30",
     "endTime": "2025-04-29T16:15:00+05:30",
-    "format": "ODI",
     "streams": [
       {
         "title": "Star Sports",
@@ -240,7 +238,6 @@
     "venue": "R. Premadasa International Cricket Stadium, Colombo, Sri Lanka",
     "startTime": "2025-05-01T10:15:00+05:30",
     "endTime": "2025-05-01T16:15:00+05:30",
-    "format": "ODI",
     "streams": [
       {
         "title": "Star Sports",
@@ -273,7 +270,6 @@
     "venue": "R. Premadasa International Cricket Stadium, Colombo, Sri Lanka",
     "startTime": "2025-05-04T10:15:00+05:30",
     "endTime": "2025-05-04T16:15:00+05:30",
-    "format": "ODI",
     "streams": [
       {
         "title": "Star Sports",
@@ -306,7 +302,6 @@
     "venue": "R. Premadasa International Cricket Stadium, Colombo, Sri Lanka",
     "startTime": "2025-05-07T10:15:00+05:30",
     "endTime": "2025-05-07T16:15:00+05:30",
-    "format": "ODI",
     "streams": [
       {
         "title": "Star Sports",
@@ -339,7 +334,6 @@
     "venue": "R. Premadasa International Cricket Stadium, Colombo, Sri Lanka",
     "startTime": "2025-05-09T10:15:00+05:30",
     "endTime": "2025-05-09T16:15:00+05:30",
-    "format": "ODI",
     "streams": [
       {
         "title": "Star Sports",
@@ -436,6 +430,26 @@
     "venue": "County Ground, Hove, England",
     "startTime": "2025-05-23T23:20:00+05:45",
     "endTime": "2025-05-24T05:20:00+05:45",
+     "streams": [
+        {
+          "title": "T-Sports HD",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://tinyurl.com/ads-tv"
+        },
+        {
+          "title": "Gazi TV (GTV)",
+          "language": "Bengali",
+          "quality": "HD",
+          "url": "https://cdn.crichdplays.ru/embed2.php?id=gtv"
+        },
+        {
+          "title": "MYCO",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://rips.in/player.php?ch=2"
+        }
+      ]
   },
   {
     "id": "403",
@@ -454,6 +468,26 @@
     "venue": "County Ground, Chelmsford, England",
     "startTime": "2025-05-26T19:00:00+05:45",
     "endTime": "2025-05-26T01:00:00+05:45",
+     "streams": [
+        {
+          "title": "T-Sports HD",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://tinyurl.com/ads-tv"
+        },
+        {
+          "title": "Gazi TV (GTV)",
+          "language": "Bengali",
+          "quality": "HD",
+          "url": "https://cdn.crichdplays.ru/embed2.php?id=gtv"
+        },
+        {
+          "title": "MYCO",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://rips.in/player.php?ch=2"
+        }
+      ]
   },
   {
     "id": "404",
@@ -472,6 +506,26 @@
     "venue": "County Ground, Derby, England",
     "startTime": "2025-05-30T18:45:00+05:45",
     "endTime": "2025-05-31T00:45:00+05:45",
+     "streams": [
+        {
+          "title": "T-Sports HD",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://tinyurl.com/ads-tv"
+        },
+        {
+          "title": "Gazi TV (GTV)",
+          "language": "Bengali",
+          "quality": "HD",
+          "url": "https://cdn.crichdplays.ru/embed2.php?id=gtv"
+        },
+        {
+          "title": "MYCO",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://rips.in/player.php?ch=2"
+        }
+      ]
   },
   {
     "id": "405",
@@ -490,6 +544,26 @@
     "venue": "Grace Road, Leicester, England",
     "startTime": "2025-06-04T18:45:00+05:45",
     "endTime": "2025-06-05T00:45:00+05:45",
+     "streams": [
+        {
+          "title": "T-Sports HD",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://tinyurl.com/ads-tv"
+        },
+        {
+          "title": "Gazi TV (GTV)",
+          "language": "Bengali",
+          "quality": "HD",
+          "url": "https://cdn.crichdplays.ru/embed2.php?id=gtv"
+        },
+        {
+          "title": "MYCO",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://rips.in/player.php?ch=2"
+        }
+      ]
   },
   {
     "id": "406",
@@ -508,6 +582,26 @@
     "venue": "The Cooper Associates County Ground, Taunton, England",
     "startTime": "2025-06-07T16:45:00+05:45",
     "endTime": "2025-06-07T22:45:00+05:45",
+     "streams": [
+        {
+          "title": "T-Sports HD",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://tinyurl.com/ads-tv"
+        },
+        {
+          "title": "Gazi TV (GTV)",
+          "language": "Bengali",
+          "quality": "HD",
+          "url": "https://cdn.crichdplays.ru/embed2.php?id=gtv"
+        },
+        {
+          "title": "MYCO",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://rips.in/player.php?ch=2"
+        }
+      ]
   }
 
 
