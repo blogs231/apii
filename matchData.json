@@ -22,19 +22,25 @@
           "title": "T-Sports HD",
           "language": "English",
           "quality": "Full HD",
-          "url": "https://tinyurl.com/ads-tv"
+          "url": "https://blogs231.github.io/apii/hls.html?url=https://cors-proxy.cooks.fyi/http://103.230.105.252:1935/live/btv/manifest.m3u8"
         },
         {
           "title": "Gazi TV (GTV)",
           "language": "Bengali",
           "quality": "HD",
-          "url": "https://cdn.crichdplays.ru/embed2.php?id=gtv"
+          "url": "https://tinyurl.com/ads-tv"
         },
         {
           "title": "MYCO",
           "language": "English",
           "quality": "Full HD",
-          "url": "https://rips.in/player.php?ch=2"
+          "url": "https://blogs231.github.io/apii/hls.html?url=https://cors-proxy.cooks.fyi/http://103.230.105.252:1935/live/btv/manifest.m3u8"
+        },
+         {
+          "title": "MYCO",
+          "language": "English",
+          "quality": "Full HD",
+          "url": "https://blogs231.github.io/apii/hls.html?url=https://cors-proxy.cooks.fyi/http://103.230.105.252:1935/live/btv/chunklist_w524649012.m3u8"
         }
       ]
     },
