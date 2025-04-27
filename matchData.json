@@ -191,13 +191,13 @@
         "title": "Star Sports",
         "language": "English",
         "quality": "HD",
-        "url": "https://tinyurl.com/star-sports"
+        "url": "https://sphub-proxy-server.onrender.com/embed?url=https%3A%2F%2Ffancode.mafiatv.live%2Fproxy.php%3Furl%3Dhttps%3A%2F%2Fdai.fancode.com%2Fprimary%2F124036_english_hls_5279ta-di%2F1080p.m3u8"
       },
       {
         "title": "Hotstar",
         "language": "Hindi",
         "quality": "Full HD",
-        "url": "https://tinyurl.com/hotstar-live"
+        "url": "https://tinyurl.com/ads-tv"
       }
     ]
   },
@@ -229,7 +229,7 @@
         "title": "Hotstar",
         "language": "Hindi",
         "quality": "Full HD",
-        "url": "https://tinyurl.com/hotstar-live"
+        "url": "https://tinyurl.com/ads-tv"
       }
     ]
   },
@@ -261,7 +261,7 @@
         "title": "Hotstar",
         "language": "Hindi",
         "quality": "Full HD",
-        "url": "https://tinyurl.com/hotstar-live"
+        "url": "https://tinyurl.com/ads-tv"
       }
     ]
   },
