@@ -561,7 +561,53 @@
         "url": "https://rips.in/player.php?ch=2"
       }
     ]
-  }
+  },
+
+{
+  "id": "247",
+  "homeTeam": {
+    "name": "England",
+    "logo": "https://cricketvectors.akamaized.net/Teams/S.png"
+  },
+  "awayTeam": {
+    "name": "Zimbabwe",
+    "logo": "https://cricketvectors.akamaized.net/Teams/X.png"
+  },
+  "league": "ENG vs ZIM Only TEST",
+  "sport": "cricket",
+  "date": "2025-05-22",
+  "time": "3:45 PM",
+  "venue": "Trent Bridge, Nottingham, United Kingdom",
+  "startTime": "2025-05-22T15:45:00+01:00",
+  "endTime": "2025-05-25T17:00:00+01:00",
+  "streams": [
+    {
+      "title": "ICC.TV",
+      "language": "English",
+      "quality": "Full HD",
+      "url": ""
+    },
+    {
+      "title": "Sky Sports",
+      "language": "English",
+      "quality": "Full HD",
+      "url": "https://tinyurl.com/ads-tv"
+    },
+    {
+      "title": "Willow TV",
+      "language": "English",
+      "quality": "Full HD",
+      "url": "https://blogs231.github.io/apii/hls.html?url="
+    },
+    {
+      "title": "SuperSport",
+      "language": "English",
+      "quality": "Full HD",
+      "url": "https://tinyurl.com/ads-tv"
+    }
+  ]
+}
+
   
   
   ]
