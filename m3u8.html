@@ -1,0 +1,97 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+  <!-- SEO -->
+  <meta name="author" content="Kasin TV Embed" />
+  <meta name="designer" content="Kasin TV Team" />
+  <meta name="description" content="Watch Live Streaming on Kasin TV. No signup required" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
+  <script src="https://kit.fontawesome.com/bf2610f0a2.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.4/css/halfmoon.min.css" rel="stylesheet" />
+
+  <title>Kasin TV Player</title>
+
+  <script>
+    var encodeContent = true;
+    function encodeLinks() {
+      if (encodeContent) {
+        console.log('Links encoded.');
+      } else {
+        console.log('Links not encoded.');
+      }
+    }
+    encodeLinks();
+  </script>
+
+  <script>
+    var encode = <data:content/>;
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const e = document.querySelector("video"),
+            n = e.getElementsByTagName("source")[0].src,
+            o = {};
+      if (Hls.isSupported()) {
+        var config = { maxMaxBufferLength: 100 };
+        const t = new Hls(config);
+        t.loadSource(n);
+        t.on(Hls.Events.MANIFEST_PARSED, function(n, l) {
+          const s = t.levels.map(e => e.height);
+          o.quality = {
+            default: s[0],
+            options: s,
+            forced: !0,
+            onChange: e => {
+              window.hls.levels.forEach((n, o) => {
+                if (n.height === e) window.hls.currentLevel = o;
+              });
+            }
+          };
+          new Plyr(e, o);
+        });
+        t.attachMedia(e);
+        window.hls = t;
+      } else {
+        new Plyr(e, o);
+      }
+    });
+  </script>
+</head>
+
+<body class="dark-mode with-custom-scrollbars with-custom-css-scrollbars">
+  <video id="player" controls preload="metadata" poster="https://pbs.twimg.com/profile_images/1851119634315165697/ujpCowkm_400x400.png" class="plyr">
+    <source id="videoSource" type="application/x-mpegURL"/>
+  </video>
+
+  <script>
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    var videoUrl = getParameterByName('url');
+    if (videoUrl) {
+      document.getElementById('videoSource').setAttribute('src', videoUrl);
+      document.getElementById('player').load();
+    }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Plyr.setup('.js-player');
+    });  
+  </script>
+</body>
+</html>
