@@ -59,8 +59,8 @@
   "date": "2025-05-17",
   "time": "8:45 PM",
   "venue": "Sharjah Cricket Stadium, Sharjah",
-  "startTime": "2025-05-17T20:45:00+04:00",
-  "endTime": "2025-05-17T23:59:00+04:00",
+  "startTime": "2025-05-17T20:45:00+05:45",
+  "endTime": "2025-05-17T23:00:00+05:45",
   "streams": [
     {
       "title": "ICC.TV",
