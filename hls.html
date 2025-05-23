@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HLS Player with Audio Control</title>
+  <title>HLS Player</title>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-   <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://zonxso.com/code/pops.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NjMsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
-  <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://zonxso.com/code/pops.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NTQsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
-  <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://puabvo.com/code/native.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NTIsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
   <style>
     html, body {
       margin: 0;
@@ -21,13 +18,14 @@
       position: relative;
       width: 100vw;
       height: 100vh;
+      background-color: black;
     }
 
     video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      background: #000;
+      object-fit: contain;
+      background: black;
     }
 
     #fullscreen-btn, #volume-btn {
@@ -58,7 +56,7 @@
 </head>
 <body>
   <div class="video-container" id="video-container">
-    <video id="video" controls></video>
+    <video id="video" controls autoplay muted></video>
     <button id="fullscreen-btn">⛶ Fullscreen</button>
     <button id="volume-btn">🔊</button>
   </div>
@@ -93,41 +91,29 @@
         });
       }
 
-      // Fullscreen button
+      // Fullscreen
       document.getElementById('fullscreen-btn').addEventListener('click', function () {
         const container = document.getElementById('video-container');
-        if (
-          document.fullscreenElement ||
-          document.webkitFullscreenElement ||
-          document.mozFullScreenElement ||
-          document.msFullscreenElement
-        ) {
-          if (document.exitFullscreen) document.exitFullscreen();
-          else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-          else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-          else if (document.msExitFullscreen) document.msExitFullscreen();
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
         } else {
-          if (video.webkitEnterFullscreen) video.webkitEnterFullscreen(); // iOS
-          else if (container.requestFullscreen) container.requestFullscreen();
-          else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
-          else if (container.mozRequestFullScreen) container.mozRequestFullScreen();
-          else if (container.msRequestFullscreen) container.msRequestFullscreen();
+          container.requestFullscreen().catch(err => console.log(err));
         }
       });
 
-      // Volume button toggle mute
+      // Volume toggle
       volumeBtn.addEventListener('click', function () {
         video.muted = !video.muted;
         volumeBtn.textContent = video.muted ? '🔇' : '🔊';
       });
 
-      // Scroll to adjust volume
+      // Volume scroll
       video.addEventListener('wheel', function (event) {
         event.preventDefault();
         const step = 0.05;
 
         if (event.ctrlKey) {
-          // Playback rate
+          // Playback speed
           if (event.deltaY > 0) {
             video.playbackRate = Math.max(0.1, video.playbackRate - 0.1);
           } else {
