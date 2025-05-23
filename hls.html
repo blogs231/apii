@@ -2,64 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HLS Player</title>
-   <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://zonxso.com/code/pops.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NjMsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
+  <title>HLS Player with Scrolling</title>
   <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://zonxso.com/code/pops.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NTQsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
-  <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://puabvo.com/code/native.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NTIsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: #000;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      background: black;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto; /* allow scrolling */
     }
 
     .video-container {
       position: relative;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      min-height: 100vh;
+      overflow: auto;
       background-color: black;
     }
 
     video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      display: block;
+      margin: 0 auto;
       background: black;
     }
 
     #fullscreen-btn, #volume-btn {
-      position: absolute;
+      position: fixed;
       top: 20px;
+      z-index: 1000;
       padding: 10px 15px;
+      font-size: 14px;
+      color: white;
       background: rgba(30, 144, 255, 0.8);
       border: none;
       border-radius: 5px;
-      color: white;
-      font-size: 14px;
       cursor: pointer;
-      z-index: 10;
     }
 
-    #fullscreen-btn:hover, #volume-btn:hover {
-      background: rgba(15, 122, 229, 0.9);
-    }
-
-    #fullscreen-btn {
-      right: 20px;
-    }
-
-    #volume-btn {
-      right: 100px;
-    }
+    #fullscreen-btn { right: 20px; }
+    #volume-btn { right: 120px; }
   </style>
 </head>
 <body>
   <div class="video-container" id="video-container">
-    <video id="video" controls autoplay muted></video>
+    <video id="video" controls autoplay muted playsinline></video>
     <button id="fullscreen-btn">⛶ Fullscreen</button>
     <button id="volume-btn">🔊</button>
   </div>
@@ -84,18 +76,13 @@
         const hls = new Hls();
         hls.loadSource(videoSrc);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function () {
-          video.play();
-        });
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = videoSrc;
-        video.addEventListener('loadedmetadata', function () {
-          video.play();
-        });
+        video.addEventListener('loadedmetadata', () => video.play());
       }
 
-      // Fullscreen
-      document.getElementById('fullscreen-btn').addEventListener('click', function () {
+      document.getElementById('fullscreen-btn').addEventListener('click', () => {
         const container = document.getElementById('video-container');
         if (document.fullscreenElement) {
           document.exitFullscreen();
@@ -104,31 +91,20 @@
         }
       });
 
-      // Volume toggle
-      volumeBtn.addEventListener('click', function () {
+      volumeBtn.addEventListener('click', () => {
         video.muted = !video.muted;
         volumeBtn.textContent = video.muted ? '🔇' : '🔊';
       });
 
-      // Volume scroll
       video.addEventListener('wheel', function (event) {
         event.preventDefault();
         const step = 0.05;
-
         if (event.ctrlKey) {
-          // Playback speed
-          if (event.deltaY > 0) {
-            video.playbackRate = Math.max(0.1, video.playbackRate - 0.1);
-          } else {
-            video.playbackRate = Math.min(2, video.playbackRate + 0.1);
-          }
+          video.playbackRate += event.deltaY > 0 ? -0.1 : 0.1;
+          video.playbackRate = Math.max(0.1, Math.min(video.playbackRate, 2));
         } else {
-          // Volume control
-          if (event.deltaY > 0) {
-            video.volume = Math.max(0, video.volume - step);
-          } else {
-            video.volume = Math.min(1, video.volume + step);
-          }
+          video.volume += event.deltaY > 0 ? -step : step;
+          video.volume = Math.max(0, Math.min(video.volume, 1));
           video.muted = false;
           volumeBtn.textContent = video.volume === 0 ? '🔇' : '🔊';
         }
