@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Dynamic HLS.js Player</title>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://zonxso.com/code/pops.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NjMsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
+  <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://zonxso.com/code/pops.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NTQsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
   <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://puabvo.com/code/native.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NTIsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
   <style>
     html, body {
@@ -21,7 +23,7 @@
       height: 100vh;
     }
 
-    video, iframe {
+    video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -54,7 +56,6 @@
   </div>
 
   <script>
-    // Get URL query parameters
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
@@ -62,13 +63,14 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       const video = document.getElementById('video');
-      const videoSrc = getQueryParam('url'); // Get ?url= from query string
+      const videoSrc = getQueryParam('url');
 
       if (!videoSrc) {
         alert("No video URL provided. Use ?url=YOUR_STREAM_URL");
         return;
       }
 
+      // HLS.js support for non-Safari browsers
       if (Hls.isSupported()) {
         const hls = new Hls();
         hls.loadSource(videoSrc);
@@ -77,19 +79,37 @@
           video.play();
         });
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // Native support (Safari)
         video.src = videoSrc;
         video.addEventListener('loadedmetadata', function () {
           video.play();
         });
       }
 
-      // Fullscreen toggle button
+      // Fixed fullscreen support for all platforms including iOS
       document.getElementById('fullscreen-btn').addEventListener('click', function () {
         const container = document.getElementById('video-container');
-        if (document.fullscreenElement) {
-          document.exitFullscreen();
+
+        if (
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement
+        ) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
         } else {
-          if (container.requestFullscreen) {
+          // On iOS, fullscreen must be called on the <video> element itself
+          if (video.webkitEnterFullscreen) {
+            video.webkitEnterFullscreen(); // iOS-specific
+          } else if (container.requestFullscreen) {
             container.requestFullscreen();
           } else if (container.webkitRequestFullscreen) {
             container.webkitRequestFullscreen();
@@ -101,46 +121,20 @@
         }
       });
 
-      // Scroll event for video (volume and playback rate control)
+      // Scroll wheel control for volume and playback speed
       video.addEventListener('wheel', function (event) {
-        if (event.ctrlKey) { // Hold Ctrl to change playback speed
+        if (event.ctrlKey) {
           if (event.deltaY > 0) {
-            video.playbackRate = Math.max(0.1, video.playbackRate - 0.1); // Decrease playback speed
+            video.playbackRate = Math.max(0.1, video.playbackRate - 0.1);
           } else {
-            video.playbackRate = Math.min(2, video.playbackRate + 0.1); // Increase playback speed
+            video.playbackRate = Math.min(2, video.playbackRate + 0.1);
           }
-        } else { // Normal scroll adjusts volume
-          let volume = video.volume + event.deltaY * -0.01; // Adjust volume with scroll
-          video.volume = Math.min(1, Math.max(0, volume)); // Keep volume between 0 and 1
+        } else {
+          let volume = video.volume + event.deltaY * -0.01;
+          video.volume = Math.min(1, Math.max(0, volume));
         }
         event.preventDefault();
       });
-      
-      // Alternatively, if you're using an iframe for video
-      const iframe = document.querySelector('iframe');
-      if (iframe) {
-        iframe.addEventListener('wheel', function (event) {
-          if (event.ctrlKey) { // Hold Ctrl to change playback speed (if supported by iframe)
-            let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            const iframeVideo = iframeDoc.querySelector('video');
-            if (iframeVideo) {
-              if (event.deltaY > 0) {
-                iframeVideo.playbackRate = Math.max(0.1, iframeVideo.playbackRate - 0.1);
-              } else {
-                iframeVideo.playbackRate = Math.min(2, iframeVideo.playbackRate + 0.1);
-              }
-            }
-          } else { // Adjust volume in iframe video
-            let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            const iframeVideo = iframeDoc.querySelector('video');
-            if (iframeVideo) {
-              let volume = iframeVideo.volume + event.deltaY * -0.01;
-              iframeVideo.volume = Math.min(1, Math.max(0, volume));
-            }
-          }
-          event.preventDefault();
-        });
-      }
     });
   </script>
 </body>
