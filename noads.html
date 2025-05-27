@@ -1,0 +1,137 @@
+<script>
+    function getParam ( sname )
+    {
+      var params = location.search.substr(location.search.indexOf("?")+1);
+      var sval =  params.replace("url=", "");
+      
+      return sval;
+    }
+    var sv = getParam("sv");
+    </script>
+    <title>MG SPORTS TV</title>
+    <meta name="referrer" content="no-referrer">
+ <script src="https://pc.sandipsitaula2023.com.np/Player/video.js"></script>
+    <body onload="init()">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script>$(document).ready(function() {
+      $("img").on("contextmenu",function(){
+         return false;
+      }); 
+  }); </script>
+
+
+        
+ <iframe id="iframe" allowfullscreen="allowfullscreen" allowtransparency="true" frameborder="0" height="100%" autoplay="true" marginheight="0" marginwidth="0" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" src width="100%"></iframe> 
+
+        
+<div id="jwPlayer"></div>
+<div id="jwplayers"></div>
+<script>
+    // Get the `src` parameter from the URL.
+    const urlParams = new URLSearchParams(window.location.search);
+    const srcParam = urlParams.get('src');
+    const videoUrl = urlParams.get('url');
+    
+    if (srcParam) {
+      // Show the iframe player
+      document.getElementById('iframe').src = srcParam;
+      document.getElementById('jwPlayer').style.display = 'none';
+    } else if (videoUrl) {
+      // Show the JW Player
+      jwplayer("jwPlayer").setup({
+        file: videoUrl,
+      });
+      document.getElementById('iframe').style.display = 'none';
+    }
+  </script> 
+    
+    </div>
+ <div id="text">mgsportstv.com </div>      
+    <style>
+        #container {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          background: #8a0000;
+          color: #fff;
+          overflow: hidden;
+        }
+        #iframe, #jwPlayer {
+          height: 100vh !important;
+          padding: 0;
+          margin: 0;
+        }
+        body {
+          height: 100vh;
+          margin: 0;
+          padding: 0;
+        }
+        #container {
+          position: absolute;
+          text-align: center;
+        }
+        video {
+          outline: 0;
+        }
+        #text {
+          position: fixed;
+          border: 0;
+          left: 0;
+          width: 100%;
+          color: #fff;
+          bottom: 50px;
+          text-align: center;
+          font-family: tahoma;
+          font-size: 20px;
+          z-index: 9999;
+        }
+
+          .logo-container {    position: fixed;
+    top: 10px;    right: -2px;
+    z-index: 1000;    display: flex;
+    align-items: center;}
+.logo-container .float {
+    display: inline-block;    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/640px-Telegram_2019_Logo.svg.png') no-repeat center center;
+    background-size: contain;    width: 50px;
+    height: 50px;    text-decoration: none;
+}
+.logo-container .label-container {    display: flex;
+    align-items: center;    margin-left: 5px;
+}
+.logo-container .label-arrow {
+    color: white;    margin-right: 5px;
+}
+.logo-container .label-text {    color: white;
+    font-size: 14px;}
+      </style>
+    </div>
+
+        
+
+    <style>
+        .video-js {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            text-align: center;
+            margin: 0px;
+        }
+        #videojs {
+            width: 100%;
+            height: 100%;
+        }.streaming-dimensions{
+                    width: 100% !important;
+            height: 100% !important;
+        }
+    </style> 
+         <div class="logo-container" >
+ <a href="https://t.me/mgsportstv1" target="_blank" rel="noopener noreferrer" class="float" id="logo"></a>
+            <div class="label-container" bis_skin_checked="1">
+                <i class="fa fa-play label-arrow"></i>
+                <div class="label-text"></div>
+            </div>
+        </div>
+</body>
+</html>
