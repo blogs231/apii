@@ -1,98 +1,527 @@
-<!DOCTYPE html> 
-<html lang="en"> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
   <!-- SEO -->
   <meta name="author" content="Kasin TV Embed" />
   <meta name="designer" content="Kasin TV Team" />
   <meta name="description" content="Watch Live Streaming on Kasin TV. No signup required" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
-  <script src="https://kit.fontawesome.com/bf2610f0a2.js" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.4/css/halfmoon.min.css" rel="stylesheet" />
-  <script>(function(d){let s=d.createElement('script');s.async=true;s.src='https://puabvo.com/code/native.js?h=waWQiOjExODYzNTUsInNpZCI6MTM2ODE5Mywid2lkIjo2MDc5NTIsInNyYyI6Mn0=eyJ';d.head.appendChild(s);})(document);</script>
-
   <title>Kasin TV Player</title>
 
-  <script>
-    var encodeContent = true;
-    function encodeLinks() {
-      if (encodeContent) {
-        console.log('Links encoded.');
-      } else {
-        console.log('Links not encoded.');
+  <!-- Plyr CSS -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
+  
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/bf2610f0a2.js" crossorigin="anonymous"></script>
+  
+  <!-- Halfmoon CSS -->
+  <link href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.4/css/halfmoon.min.css" rel="stylesheet" />
+
+  <!-- HLS.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  
+  <!-- Plyr JS -->
+  <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .player-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    .plyr {
+      width: 100%;
+      height: 100%;
+    }
+
+    .plyr video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Plyr customizations */
+    .plyr--video {
+      background: #000;
+    }
+
+    .plyr__control--overlaid {
+      background: rgba(30, 144, 255, 0.8);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .plyr__control--overlaid:hover {
+      background: rgba(30, 144, 255, 1);
+    }
+
+    .plyr__controls {
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+      padding: 20px;
+    }
+
+    .plyr__control {
+      color: #fff;
+    }
+
+    .plyr__control:hover {
+      background: rgba(30, 144, 255, 0.8);
+    }
+
+    .plyr__progress__range {
+      color: #1e90ff;
+    }
+
+    .plyr__volume__range {
+      color: #1e90ff;
+    }
+
+    /* Loading indicator */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid #1e90ff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 16px;
+      text-align: center;
+    }
+
+    /* Error overlay */
+    .error-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ff6b6b;
+      z-index: 1001;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .error-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .error-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .error-message {
+      font-size: 14px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .retry-btn {
+      padding: 10px 20px;
+      background: #1e90ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .retry-btn:hover {
+      background: #4169e1;
+    }
+
+    /* Stream info */
+    .stream-info {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      z-index: 100;
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .player-container:hover .stream-info {
+      opacity: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .plyr__controls {
+        padding: 15px;
+      }
+      
+      .stream-info {
+        top: 10px;
+        left: 10px;
+        font-size: 11px;
+        padding: 6px 10px;
       }
     }
-    encodeLinks();
-  </script>
 
-  <script>
-    var encode = <data:content/>;
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const e = document.querySelector("video"),
-            n = e.getElementsByTagName("source")[0].src,
-            o = {};
-      if (Hls.isSupported()) {
-        var config = { maxMaxBufferLength: 100 };
-        const t = new Hls(config);
-        t.loadSource(n);
-        t.on(Hls.Events.MANIFEST_PARSED, function(n, l) {
-          const s = t.levels.map(e => e.height);
-          o.quality = {
-            default: s[0],
-            options: s,
-            forced: !0,
-            onChange: e => {
-              window.hls.levels.forEach((n, o) => {
-                if (n.height === e) window.hls.currentLevel = o;
-              });
-            }
-          };
-          new Plyr(e, o);
-        });
-        t.attachMedia(e);
-        window.hls = t;
-      } else {
-        new Plyr(e, o);
-      }
-    });
-  </script>
+    /* Dark mode enhancements */
+    .dark-mode {
+      background: #000;
+    }
+  </style>
 </head>
 
 <body class="dark-mode with-custom-scrollbars with-custom-css-scrollbars">
-  <video id="player" controls preload="metadata" poster="https://pbs.twimg.com/profile_images/1851119634315165697/ujpCowkm_400x400.png" class="plyr">
-    <source id="videoSource" type="application/x-mpegURL"/>
-  </video>
+  <div class="player-container">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading stream...</div>
+    </div>
+
+    <!-- Error Overlay -->
+    <div class="error-overlay" id="errorOverlay">
+      <div class="error-icon">⚠️</div>
+      <div class="error-title">Stream Error</div>
+      <div class="error-message" id="errorMessage">Failed to load the stream</div>
+      <button class="retry-btn" onclick="retryStream()">Retry</button>
+    </div>
+
+    <!-- Stream Info -->
+    <div class="stream-info" id="streamInfo">
+      <span id="qualityInfo">Loading...</span>
+    </div>
+
+    <!-- Video Player -->
+    <video 
+      id="player" 
+      class="plyr js-player" 
+      controls 
+      preload="metadata" 
+      poster="https://pbs.twimg.com/profile_images/1851119634315165697/ujpCowkm_400x400.png"
+      playsinline
+      webkit-playsinline>
+      <source id="videoSource" type="application/x-mpegURL" />
+    </video>
+  </div>
 
   <script>
-    function getParameterByName(name, url) {
-      if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    class KasinTVPlayer {
+      constructor() {
+        this.video = document.getElementById('player');
+        this.hls = null;
+        this.player = null;
+        this.videoUrl = null;
+        this.loadingOverlay = document.getElementById('loadingOverlay');
+        this.errorOverlay = document.getElementById('errorOverlay');
+        this.streamInfo = document.getElementById('streamInfo');
+        
+        this.init();
+      }
+
+      getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      showLoading(show = true) {
+        if (show) {
+          this.loadingOverlay.classList.remove('hidden');
+        } else {
+          this.loadingOverlay.classList.add('hidden');
+        }
+      }
+
+      showError(message = 'Failed to load the stream') {
+        document.getElementById('errorMessage').textContent = message;
+        this.errorOverlay.style.display = 'flex';
+        this.showLoading(false);
+      }
+
+      hideError() {
+        this.errorOverlay.style.display = 'none';
+      }
+
+      updateStreamInfo(info = 'Stream Active') {
+        document.getElementById('qualityInfo').textContent = info;
+      }
+
+      setupPlyr() {
+        const plyrOptions = {
+          controls: [
+            'play-large',
+            'play',
+            'progress',
+            'current-time',
+            'duration',
+            'mute',
+            'volume',
+            'settings',
+            'fullscreen'
+          ],
+          settings: ['quality', 'speed'],
+          quality: {
+            default: 'auto',
+            options: ['auto'],
+            forced: true,
+            onChange: (quality) => {
+              if (this.hls && this.hls.levels) {
+                if (quality === 'auto') {
+                  this.hls.currentLevel = -1;
+                } else {
+                  const level = this.hls.levels.findIndex(l => l.height == quality);
+                  if (level !== -1) {
+                    this.hls.currentLevel = level;
+                  }
+                }
+              }
+            }
+          },
+          speed: {
+            selected: 1,
+            options: [0.5, 0.75, 1, 1.25, 1.5, 2]
+          },
+          ratio: '16:9',
+          fullscreen: {
+            enabled: true,
+            fallback: true,
+            iosNative: true
+          },
+          autoplay: true,
+          muted: true
+        };
+
+        this.player = new Plyr(this.video, plyrOptions);
+
+        // Plyr event listeners
+        this.player.on('ready', () => {
+          console.log('Plyr ready');
+          this.showLoading(false);
+        });
+
+        this.player.on('error', (event) => {
+          console.error('Plyr error:', event);
+          this.showError('Player error occurred');
+        });
+
+        this.player.on('loadstart', () => {
+          this.showLoading(true);
+          this.hideError();
+        });
+
+        this.player.on('canplay', () => {
+          this.showLoading(false);
+        });
+
+        return this.player;
+      }
+
+      setupHLS() {
+        if (!this.videoUrl) {
+          this.showError('No video URL provided. Use ?url=YOUR_STREAM_URL');
+          return;
+        }
+
+        if (Hls.isSupported()) {
+          const hlsConfig = {
+            maxMaxBufferLength: 100,
+            enableWorker: true,
+            lowLatencyMode: true,
+            backBufferLength: 90,
+            maxBufferHole: 0.5,
+            maxBufferSize: 60 * 1000 * 1000, // 60MB
+            maxBufferLength: 30, // 30 seconds
+            liveSyncDurationCount: 3
+          };
+
+          this.hls = new Hls(hlsConfig);
+          
+          this.hls.loadSource(this.videoUrl);
+          this.hls.attachMedia(this.video);
+
+          // HLS event listeners
+          this.hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+            console.log('HLS manifest parsed');
+            
+            // Setup quality options
+            if (data.levels && data.levels.length > 1) {
+              const qualities = data.levels.map(level => level.height);
+              const uniqueQualities = [...new Set(qualities)].sort((a, b) => b - a);
+              
+              // Update Plyr quality options
+              if (this.player) {
+                this.player.options.quality.options = ['auto', ...uniqueQualities];
+              }
+            }
+
+            // Auto-play
+            this.video.play().catch(e => {
+              console.log('Autoplay prevented:', e);
+            });
+          });
+
+          this.hls.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
+            const level = this.hls.levels[data.level];
+            if (level) {
+              this.updateStreamInfo(`${level.width}x${level.height} (${Math.round(level.bitrate / 1000)}k)`);
+            }
+          });
+
+          this.hls.on(Hls.Events.ERROR, (event, data) => {
+            console.error('HLS Error:', data);
+            
+            if (data.fatal) {
+              switch (data.type) {
+                case Hls.ErrorTypes.NETWORK_ERROR:
+                  this.showError('Network error - Check your connection');
+                  break;
+                case Hls.ErrorTypes.MEDIA_ERROR:
+                  this.showError('Media error - Stream format issue');
+                  break;
+                default:
+                  this.showError(`Stream error: ${data.type}`);
+                  break;
+              }
+            }
+          });
+
+          this.hls.on(Hls.Events.FRAG_LOADED, () => {
+            this.hideError();
+          });
+
+          window.hls = this.hls; // For compatibility
+
+        } else if (this.video.canPlayType('application/vnd.apple.mpegurl')) {
+          // Safari fallback
+          this.video.src = this.videoUrl;
+          this.video.addEventListener('loadedmetadata', () => {
+            this.video.play().catch(console.log);
+          });
+        } else {
+          this.showError('HLS streaming not supported in this browser');
+        }
+      }
+
+      init() {
+        // Get video URL from query parameter
+        this.videoUrl = this.getParameterByName('url');
+        
+        // Setup components
+        this.setupPlyr();
+        this.setupHLS();
+
+        // Set video source
+        if (this.videoUrl) {
+          document.getElementById('videoSource').setAttribute('src', this.videoUrl);
+        }
+
+        // Additional error handling
+        this.video.addEventListener('error', (e) => {
+          console.error('Video error:', e);
+          this.showError('Video playback error');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+          switch(e.code) {
+            case 'Space':
+              e.preventDefault();
+              if (this.player) {
+                this.player.togglePlay();
+              }
+              break;
+            case 'KeyF':
+              e.preventDefault();
+              if (this.player) {
+                this.player.fullscreen.toggle();
+              }
+              break;
+            case 'KeyM':
+              e.preventDefault();
+              if (this.player) {
+                this.player.muted = !this.player.muted;
+              }
+              break;
+          }
+        });
+      }
     }
 
-    var videoUrl = getParameterByName('url');
-    if (videoUrl) {
-      document.getElementById('videoSource').setAttribute('src', videoUrl);
-      document.getElementById('player').load();
+    // Retry function
+    function retryStream() {
+      window.location.reload();
     }
-  </script>
 
-  <script>
+    // Initialize player when DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
-      Plyr.setup('.js-player');
-    });  
+      new KasinTVPlayer();
+    });
   </script>
 </body>
 </html>
