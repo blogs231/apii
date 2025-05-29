@@ -44,7 +44,8 @@
     body.hideOverlays #controls, 
     body.hideOverlays #metadata,
     body.hideOverlays .loading-overlay,
-    body.hideOverlays .stream-info {
+    body.hideOverlays .stream-info,
+    body.hideOverlays .quality-menu {
       opacity: 0;
       pointer-events: none;
     }
@@ -225,6 +226,84 @@
       width: 100%;
     }
 
+    /* Quality selector */
+    .quality-selector {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    .quality-btn {
+      display: flex;
+      align-items: center;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 5px 8px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .quality-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #1e90ff;
+    }
+
+    .quality-btn i {
+      margin-left: 5px;
+      font-size: 12px;
+    }
+
+    .quality-menu {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 10px;
+      min-width: 120px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: opacity 0.3s ease;
+    }
+
+    .quality-menu.hidden {
+      display: none;
+    }
+
+    .quality-option {
+      display: block;
+      width: 100%;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      text-align: left;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .quality-option:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #1e90ff;
+    }
+
+    .quality-option.active {
+      background: #1e90ff;
+      color: white;
+    }
+
+    .quality-option.active:hover {
+      background: #4169e1;
+    }
+
     /* Loading overlay */
     .loading-overlay {
       position: absolute;
@@ -367,6 +446,14 @@
       #title {
         font-size: 1.2em;
       }
+
+      .quality-selector {
+        padding: 0 10px;
+      }
+
+      .quality-menu {
+        right: -10px;
+      }
     }
 
     @media (max-width: 350px) {
@@ -376,6 +463,10 @@
       
       .speaker {
         padding-right: 5px;
+      }
+
+      .quality-selector {
+        padding: 0 5px;
       }
     }
   </style>
@@ -434,6 +525,17 @@
         <i id="muted" class="fas fa-volume-mute hidden"></i>
         <input type="range" id="volume" min="0" max="1" value="0.8" step="0.1">
       </div>
+
+      <!-- Quality Selector -->
+      <div class="quality-selector">
+        <button class="quality-btn" id="qualityBtn">
+          <span id="currentQuality">Auto</span>
+          <i class="fas fa-chevron-up"></i>
+        </button>
+        <div class="quality-menu hidden" id="qualityMenu">
+          <button class="quality-option active" data-level="-1">Auto</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -454,11 +556,16 @@
         this.loadingOverlay = document.getElementById('loadingOverlay');
         this.errorOverlay = document.getElementById('errorOverlay');
         this.streamInfo = document.getElementById('streamInfo');
+        this.qualityBtn = document.getElementById('qualityBtn');
+        this.qualityMenu = document.getElementById('qualityMenu');
+        this.currentQuality = document.getElementById('currentQuality');
         
         this.hls = null;
         this.videoUrl = null;
         this.hideOverlaysTimer = null;
         this.isLive = false;
+        this.qualityLevels = [];
+        this.currentLevel = -1;
         
         this.init();
       }
@@ -527,6 +634,72 @@
         } else {
           this.unmuted.className = 'fas fa-volume-up';
         }
+      }
+
+      // Quality management
+      updateQualityMenu() {
+        if (!this.hls || !this.hls.levels) return;
+
+        const menu = this.qualityMenu;
+        menu.innerHTML = '';
+
+        // Add Auto option
+        const autoOption = document.createElement('button');
+        autoOption.className = 'quality-option';
+        autoOption.textContent = 'Auto';
+        autoOption.dataset.level = '-1';
+        if (this.currentLevel === -1) {
+          autoOption.classList.add('active');
+        }
+        autoOption.addEventListener('click', () => this.selectQuality(-1));
+        menu.appendChild(autoOption);
+
+        // Add quality levels
+        this.hls.levels.forEach((level, index) => {
+          const option = document.createElement('button');
+          option.className = 'quality-option';
+          option.textContent = `${level.height}p (${Math.round(level.bitrate / 1000)}k)`;
+          option.dataset.level = index;
+          
+          if (this.currentLevel === index) {
+            option.classList.add('active');
+          }
+          
+          option.addEventListener('click', () => this.selectQuality(index));
+          menu.appendChild(option);
+        });
+      }
+
+      selectQuality(levelIndex) {
+        if (!this.hls) return;
+
+        this.currentLevel = levelIndex;
+        
+        if (levelIndex === -1) {
+          // Auto quality
+          this.hls.currentLevel = -1;
+          this.currentQuality.textContent = 'Auto';
+        } else {
+          // Manual quality
+          this.hls.currentLevel = levelIndex;
+          const level = this.hls.levels[levelIndex];
+          this.currentQuality.textContent = `${level.height}p`;
+        }
+
+        // Update menu options
+        this.qualityMenu.querySelectorAll('.quality-option').forEach(option => {
+          option.classList.remove('active');
+          if (parseInt(option.dataset.level) === levelIndex) {
+            option.classList.add('active');
+          }
+        });
+
+        // Hide menu
+        this.qualityMenu.classList.add('hidden');
+      }
+
+      toggleQualityMenu() {
+        this.qualityMenu.classList.toggle('hidden');
       }
 
       // Overlay management
@@ -603,6 +776,9 @@
             console.log('HLS manifest parsed', data);
             this.isLive = data.live || false;
             
+            // Update quality menu
+            this.updateQualityMenu();
+            
             if (data.levels && data.levels.length > 0) {
               const level = data.levels[0];
               this.updateStreamInfo(`${level.width}x${level.height} @ ${Math.round(level.bitrate / 1000)}k`);
@@ -619,6 +795,11 @@
             const level = this.hls.levels[data.level];
             if (level) {
               this.updateStreamInfo(`${level.width}x${level.height} @ ${Math.round(level.bitrate / 1000)}k`);
+              
+              // Update current quality display if auto is selected
+              if (this.currentLevel === -1) {
+                this.currentQuality.textContent = `Auto (${level.height}p)`;
+              }
             }
           });
 
@@ -662,9 +843,22 @@
           this.showOverlays();
         });
 
+        // Click outside quality menu to close it
+        document.addEventListener('click', (e) => {
+          if (!this.qualityBtn.contains(e.target) && !this.qualityMenu.contains(e.target)) {
+            this.qualityMenu.classList.add('hidden');
+          }
+        });
+
         // Window resize
         window.addEventListener('resize', () => {
           this.resizeOverlays();
+        });
+
+        // Quality button
+        this.qualityBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleQualityMenu();
         });
 
         // Play button
@@ -810,6 +1004,10 @@
                 this.video.currentTime = Math.min(this.video.duration, this.video.currentTime + 10);
               }
               break;
+            case 'KeyQ':
+              e.preventDefault();
+              this.toggleQualityMenu();
+              break;
           }
         });
       }
@@ -850,7 +1048,7 @@
 
     // Initialize player when DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
-      new HLSVideoPlayer();
+      window.player = new HLSVideoPlayer();
     });
 
     // Handle fullscreen changes
