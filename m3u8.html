@@ -97,6 +97,54 @@
       color: #1e90ff;
     }
 
+    /* Quality selector styles */
+    .quality-selector {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 6px;
+      padding: 8px;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .player-container:hover .quality-selector {
+      opacity: 1;
+    }
+
+    .quality-selector select {
+      background: rgba(30, 144, 255, 0.8);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      outline: none;
+      min-width: 80px;
+    }
+
+    .quality-selector select:hover {
+      background: rgba(30, 144, 255, 1);
+    }
+
+    .quality-selector select option {
+      background: #1a1a1a;
+      color: white;
+      padding: 4px;
+    }
+
+    .quality-label {
+      color: white;
+      font-size: 11px;
+      margin-bottom: 4px;
+      text-align: center;
+      opacity: 0.8;
+    }
+
     /* Loading indicator */
     .loading-overlay {
       position: absolute;
@@ -221,6 +269,18 @@
         font-size: 11px;
         padding: 6px 10px;
       }
+
+      .quality-selector {
+        top: 10px;
+        right: 10px;
+        padding: 6px;
+      }
+
+      .quality-selector select {
+        font-size: 11px;
+        padding: 4px 8px;
+        min-width: 70px;
+      }
     }
 
     /* Dark mode enhancements */
@@ -244,6 +304,14 @@
       <div class="error-title">Stream Error</div>
       <div class="error-message" id="errorMessage">Failed to load the stream</div>
       <button class="retry-btn" onclick="retryStream()">Retry</button>
+    </div>
+
+    <!-- Quality Selector -->
+    <div class="quality-selector" id="qualitySelector">
+      <div class="quality-label">Quality</div>
+      <select id="qualitySelect">
+        <option value="-1">Auto</option>
+      </select>
     </div>
 
     <!-- Stream Info -->
@@ -274,6 +342,8 @@
         this.loadingOverlay = document.getElementById('loadingOverlay');
         this.errorOverlay = document.getElementById('errorOverlay');
         this.streamInfo = document.getElementById('streamInfo');
+        this.qualitySelect = document.getElementById('qualitySelect');
+        this.availableQualities = [];
         
         this.init();
       }
@@ -310,6 +380,43 @@
         document.getElementById('qualityInfo').textContent = info;
       }
 
+      setupQualitySelector() {
+        this.qualitySelect.addEventListener('change', (e) => {
+          const selectedLevel = parseInt(e.target.value);
+          
+          if (this.hls && this.hls.levels) {
+            if (selectedLevel === -1) {
+              // Auto quality
+              this.hls.currentLevel = -1;
+              console.log('Quality set to Auto');
+            } else {
+              // Manual quality selection
+              this.hls.currentLevel = selectedLevel;
+              const level = this.hls.levels[selectedLevel];
+              console.log(`Quality manually set to: ${level.width}x${level.height}`);
+            }
+          }
+        });
+      }
+
+      updateQualityOptions() {
+        if (!this.hls || !this.hls.levels) return;
+
+        // Clear existing options except Auto
+        this.qualitySelect.innerHTML = '<option value="-1">Auto</option>';
+        
+        // Add quality options
+        this.hls.levels.forEach((level, index) => {
+          const option = document.createElement('option');
+          option.value = index;
+          option.textContent = `${level.height}p (${Math.round(level.bitrate / 1000)}k)`;
+          this.qualitySelect.appendChild(option);
+        });
+
+        // Set current selection
+        this.qualitySelect.value = this.hls.currentLevel;
+      }
+
       setupPlyr() {
         const plyrOptions = {
           controls: [
@@ -323,24 +430,7 @@
             'settings',
             'fullscreen'
           ],
-          settings: ['quality', 'speed'],
-          quality: {
-            default: 'auto',
-            options: ['auto'],
-            forced: true,
-            onChange: (quality) => {
-              if (this.hls && this.hls.levels) {
-                if (quality === 'auto') {
-                  this.hls.currentLevel = -1;
-                } else {
-                  const level = this.hls.levels.findIndex(l => l.height == quality);
-                  if (level !== -1) {
-                    this.hls.currentLevel = level;
-                  }
-                }
-              }
-            }
-          },
+          settings: ['speed'],
           speed: {
             selected: 1,
             options: [0.5, 0.75, 1, 1.25, 1.5, 2]
@@ -406,17 +496,10 @@
           // HLS event listeners
           this.hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
             console.log('HLS manifest parsed');
+            console.log('Available levels:', data.levels);
             
-            // Setup quality options
-            if (data.levels && data.levels.length > 1) {
-              const qualities = data.levels.map(level => level.height);
-              const uniqueQualities = [...new Set(qualities)].sort((a, b) => b - a);
-              
-              // Update Plyr quality options
-              if (this.player) {
-                this.player.options.quality.options = ['auto', ...uniqueQualities];
-              }
-            }
+            // Update quality selector
+            this.updateQualityOptions();
 
             // Auto-play
             this.video.play().catch(e => {
@@ -427,8 +510,16 @@
           this.hls.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
             const level = this.hls.levels[data.level];
             if (level) {
-              this.updateStreamInfo(`${level.width}x${level.height} (${Math.round(level.bitrate / 1000)}k)`);
+              const qualityText = `${level.width}x${level.height} (${Math.round(level.bitrate / 1000)}k)`;
+              this.updateStreamInfo(qualityText);
+              
+              // Update selector to reflect current level
+              this.qualitySelect.value = this.hls.currentLevel;
             }
+          });
+
+          this.hls.on(Hls.Events.LEVEL_LOADING, (event, data) => {
+            console.log('Loading level:', data.level);
           });
 
           this.hls.on(Hls.Events.ERROR, (event, data) => {
@@ -461,6 +552,9 @@
           this.video.addEventListener('loadedmetadata', () => {
             this.video.play().catch(console.log);
           });
+          
+          // Hide quality selector for Safari as it doesn't support manual quality selection
+          document.getElementById('qualitySelector').style.display = 'none';
         } else {
           this.showError('HLS streaming not supported in this browser');
         }
@@ -472,6 +566,7 @@
         
         // Setup components
         this.setupPlyr();
+        this.setupQualitySelector();
         this.setupHLS();
 
         // Set video source
@@ -487,7 +582,7 @@
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
 
           switch(e.code) {
             case 'Space':
@@ -507,6 +602,15 @@
               if (this.player) {
                 this.player.muted = !this.player.muted;
               }
+              break;
+            case 'KeyQ':
+              e.preventDefault();
+              // Cycle through quality options
+              const currentIndex = parseInt(this.qualitySelect.value);
+              const options = Array.from(this.qualitySelect.options);
+              const nextIndex = (options.findIndex(opt => parseInt(opt.value) === currentIndex) + 1) % options.length;
+              this.qualitySelect.value = options[nextIndex].value;
+              this.qualitySelect.dispatchEvent(new Event('change'));
               break;
           }
         });
