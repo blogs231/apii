@@ -13,14 +13,14 @@
       padding: 0;
       width: 100vw;
       height: 100vh;
-      overflow: hidden;
       background-color: black;
+      overflow: hidden;
     }
 
     #player {
       width: 100% !important;
       height: 100% !important;
-      object-fit: contain; /* or 'cover' for fullscreen with crop */
+      object-fit: contain; /* change to 'cover' if you prefer fullscreen zoom */
       background-color: black;
     }
 
@@ -31,7 +31,7 @@
   </style>
 </head>
 <body>
-  <video id="player" controls playsinline></video>
+  <video id="player" playsinline muted autoplay controls></video>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -45,6 +45,7 @@
       const player = new Plyr(video, {
         controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
         settings: ['quality'],
+        autoplay: true
       });
 
       if (Hls.isSupported()) {
@@ -64,7 +65,9 @@
             default: -1,
             options: levels.map(l => l.value),
             forced: true,
-            onChange: (q) => hls.currentLevel = q
+            onChange: (q) => {
+              hls.currentLevel = q;
+            }
           };
         });
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
