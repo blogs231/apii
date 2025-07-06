@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>kasin-tv.com</title>
+  <title>XFire Flix Player</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@clappr/hlsjs-playback@1.0.1/dist/hlsjs-playback.min.js"></script>
-  <script type='text/javascript' src='//incompatibledancenightclub.com/5b/28/ce/5b28ce786ec5e459042420096c03022c.js'></script>
   <style>
     body {
       margin: 0;
@@ -16,14 +15,55 @@
     #player {
       width: 100vw;
       height: 100vh;
+      position: relative;
+    }
+    #adPopup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999999;
+      background: rgba(0,0,0,0.95);
+      border-radius: 12px;
+      overflow: hidden;
+      width: 90%;
+      max-width: 600px;
+      height: 340px;
+      box-shadow: 0 0 20px #000;
+    }
+    #adPopup iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    #adPopup button {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1000000;
     }
   </style>
 </head>
 <body>
   <div id="player"></div>
+
+  <!-- Popup ad container -->
+  <div id="adPopup">
+    <button onclick="closeAdPopup()">X</button>
+    <iframe src="https://incompatibledancenightclub.com/ckpthabh?key=1f09f493d023ae63f725c2657664054d" allowfullscreen></iframe>
+  </div>
+
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const streamURL = urlParams.get('url') || 'https://raw.githubusercontent.com/HelloPeopleTv4you/IPTV-Playlist/refs/heads/main/Test/73EvIb.m3u8';
+    const streamURL = urlParams.get('url') || 'https://www.xfireflix.fun/yt/v2/stream.php?video_id=9FYnSbNqvAc&e=.m3u8';
 
     new Clappr.Player({
       source: streamURL,
@@ -39,6 +79,17 @@
         buttons: "#ffffff"
       }
     });
+
+    function showAdPopup() {
+      document.getElementById('adPopup').style.display = 'block';
+    }
+
+    function closeAdPopup() {
+      document.getElementById('adPopup').style.display = 'none';
+    }
+
+    // Show ad popup every 10 seconds
+    setInterval(showAdPopup, 10000);
   </script>
 </body>
 </html>
