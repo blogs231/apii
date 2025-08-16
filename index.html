@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kasin TV</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+    body { background: #000; color: #fff; }
+
+    /* Header */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 15px 40px; background: #111; border-bottom: 1px solid #222;
+    }
+    header h1 { color: #e50914; font-size: 24px; }
+    header nav a {
+      color: #fff; text-decoration: none; margin: 0 15px; font-size: 16px;
+    }
+    header nav a:hover { color: #e50914; }
+    .btn { background: #e50914; padding: 8px 18px; border-radius: 6px; text-decoration: none; color: #fff; }
+    .btn:hover { background: #b20710; }
+
+    /* Hero */
+    .hero {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      padding: 60px 20px; text-align: center;
+    }
+    .hero-text { max-width: 500px; margin: 20px; }
+    .hero-text h2 { font-size: 40px; margin-bottom: 20px; }
+    .hero-text p { color: #aaa; font-size: 18px; margin-bottom: 25px; }
+    .hero img { max-width: 480px; border-radius: 12px; border: 2px solid #333; }
+
+    /* Features */
+    .features {
+      background: #111; padding: 60px 20px; text-align: center;
+    }
+    .features h3 { font-size: 30px; margin-bottom: 40px; }
+    .features .grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px; max-width: 1000px; margin: auto;
+    }
+    .card {
+      background: #1a1a1a; padding: 25px; border-radius: 10px; border: 1px solid #222;
+    }
+    .card h4 { margin-bottom: 10px; font-size: 20px; color: #e50914; }
+    .card p { color: #aaa; font-size: 14px; }
+
+    /* Footer */
+    footer {
+      text-align: center; padding: 20px; background: #000; color: #666;
+      border-top: 1px solid #222; font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Kasin TV</h1>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#" class="btn">Sign In</a>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Stream Anytime, Anywhere with <span style="color:#e50914;">Kasin TV</span></h2>
+      <p>Watch live sports, entertainment, and global TV channels all in one place. No limits, no boundaries — just nonstop streaming.</p>
+      <a href="#" class="btn">Start Watching</a>
+    </div>
+    <img src="https://dummyimage.com/500x300/000/fff&text=Kasin+TV+Preview" alt="Kasin TV Preview">
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <h3>Why Choose Kasin TV?</h3>
+    <div class="grid">
+      <div class="card">
+        <h4>Unlimited Streaming</h4>
+        <p>Access live matches, shows, and movies without interruptions.</p>
+      </div>
+      <div class="card">
+        <h4>Multi-Device Access</h4>
+        <p>Watch on mobile, tablet, smart TVs, or your computer.</p>
+      </div>
+      <div class="card">
+        <h4>Worldwide Coverage</h4>
+        <p>Enjoy international channels and events from anywhere.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © <span id="year"></span> Kasin TV. All Rights Reserved.
+  </footer>
+
+  <!-- JS for dynamic year -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
