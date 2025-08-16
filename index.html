@@ -1,108 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kasin TV</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KaSin TV Live Cricket & Football | Free Sports Streaming</title>
+  <meta name="description" content="Watch live cricket and football matches for free on KaSin TV. Stream international leagues, tournaments, and sports events without subscription.">
+  <meta name="keywords" content="KaSin TV, live cricket, free football streaming, sports streaming free, watch IPL free, UEFA live free, KaSin TV Live">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.kasin-tv.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="KaSin TV Live Cricket & Football - Free Sports Streaming">
+  <meta property="og:description" content="Stream cricket and football matches live, free of cost. No subscription needed on KaSin TV.">
+  <meta property="og:image" content="https://upload-cloudfalre-r2-assets.omrecipes.dev/cover%20.png">
+  <meta property="og:url" content="https://www.kasin-tv.com/">
+  <meta property="og:type" content="website">
+
   <style>
-    /* Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-
-    body { background: #000; color: #fff; }
-
-    /* Header */
-    header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 15px 40px; background: #111; border-bottom: 1px solid #222;
-    }
-    header h1 { color: #e50914; font-size: 24px; }
-    header nav a {
-      color: #fff; text-decoration: none; margin: 0 15px; font-size: 16px;
-    }
-    header nav a:hover { color: #e50914; }
-    .btn { background: #e50914; padding: 8px 18px; border-radius: 6px; text-decoration: none; color: #fff; }
-    .btn:hover { background: #b20710; }
+    body { margin:0; font-family: Arial, sans-serif; background:#000; color:#fff; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:20px 50px; background:#111; position:sticky; top:0; z-index:10; }
+    header h1 { color:#e50914; font-size:28px; }
+    nav a { color:#fff; margin:0 15px; text-decoration:none; transition:.3s; }
+    nav a:hover { color:#e50914; }
+    .btn { background:#e50914; color:#fff; padding:10px 20px; border-radius:5px; text-decoration:none; font-weight:bold; transition:.3s; }
+    .btn:hover { background:#b20710; }
 
     /* Hero */
-    .hero {
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-      padding: 60px 20px; text-align: center;
-    }
-    .hero-text { max-width: 500px; margin: 20px; }
-    .hero-text h2 { font-size: 40px; margin-bottom: 20px; }
-    .hero-text p { color: #aaa; font-size: 18px; margin-bottom: 25px; }
-    .hero img { max-width: 480px; border-radius: 12px; border: 2px solid #333; }
+    .hero { background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://upload-cloudfalre-r2-assets.omrecipes.dev/cover%20.png?auto=format&fit=crop&w=1400&q=80') center/cover; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; }
+    .hero h2 { font-size:50px; margin-bottom:20px; }
+    .hero p { font-size:20px; margin-bottom:30px; color:#ddd; }
+    .hero .btn { font-size:18px; padding:14px 28px; }
 
     /* Features */
-    .features {
-      background: #111; padding: 60px 20px; text-align: center;
-    }
-    .features h3 { font-size: 30px; margin-bottom: 40px; }
-    .features .grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px; max-width: 1000px; margin: auto;
-    }
-    .card {
-      background: #1a1a1a; padding: 25px; border-radius: 10px; border: 1px solid #222;
-    }
-    .card h4 { margin-bottom: 10px; font-size: 20px; color: #e50914; }
-    .card p { color: #aaa; font-size: 14px; }
+    .features { padding:80px 20px; background:#111; text-align:center; }
+    .features h3 { font-size:36px; margin-bottom:40px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px; max-width:1100px; margin:auto; }
+    .card { background:#1a1a1a; padding:30px; border-radius:10px; transition:.3s; border:1px solid #222; }
+    .card:hover { transform:translateY(-10px); box-shadow:0 10px 20px rgba(0,0,0,0.5); }
+    .card h4 { margin-bottom:10px; color:#e50914; font-size:20px; }
+    .card p { color:#ccc; font-size:15px; }
+
+    /* Live Matches */
+    .schedule { padding:80px 20px; background:#000; text-align:center; }
+    .schedule h3 { font-size:36px; margin-bottom:30px; }
+    table { width:90%; margin:auto; border-collapse:collapse; background:#111; border-radius:10px; overflow:hidden; }
+    th, td { padding:15px; border-bottom:1px solid #222; }
+    th { background:#e50914; color:#fff; font-size:18px; }
+    td { color:#ddd; font-size:16px; }
+    tr:hover { background:#1a1a1a; }
+
+    /* CTA */
+    .cta { background:linear-gradient(135deg,#e50914,#b20710); text-align:center; padding:70px 20px; color:#fff; }
+    .cta h3 { font-size:32px; margin-bottom:20px; }
+    .cta p { font-size:18px; margin-bottom:25px; }
+    .cta .btn { background:#fff; color:#e50914; }
 
     /* Footer */
-    footer {
-      text-align: center; padding: 20px; background: #000; color: #666;
-      border-top: 1px solid #222; font-size: 14px;
-    }
+    footer { background:#000; color:#666; text-align:center; padding:25px; font-size:14px; border-top:1px solid #222; }
   </style>
 </head>
 <body>
 
   <!-- Header -->
   <header>
-    <h1>Kasin TV</h1>
+    <h1>KaSin TV</h1>
     <nav>
+      <a href="#live">Live Matches</a>
       <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#about">About</a>
     </nav>
-    <a href="#" class="btn">Sign In</a>
+    <a href="#live" class="btn">Watch Free</a>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero-text">
-      <h2>Stream Anytime, Anywhere with <span style="color:#e50914;">Kasin TV</span></h2>
-      <p>Watch live sports, entertainment, and global TV channels all in one place. No limits, no boundaries — just nonstop streaming.</p>
-      <a href="#" class="btn">Start Watching</a>
-    </div>
-    <img src="https://dummyimage.com/500x300/000/fff&text=Kasin+TV+Preview" alt="Kasin TV Preview">
+    <h2>KaSin TV Live Cricket & Football</h2>
+    <p>Stream your favorite cricket and football matches live — 100% free, no subscription required.</p>
+    <a href="#live" class="btn">Start Watching</a>
   </section>
 
-  <!-- Features Section -->
+  <!-- Features -->
   <section id="features" class="features">
-    <h3>Why Choose Kasin TV?</h3>
+    <h3>Why KaSin TV?</h3>
     <div class="grid">
       <div class="card">
-        <h4>Unlimited Streaming</h4>
-        <p>Access live matches, shows, and movies without interruptions.</p>
+        <h4>⚡ Free Streaming</h4>
+        <p>All cricket and football matches available at no cost — forever.</p>
       </div>
       <div class="card">
-        <h4>Multi-Device Access</h4>
-        <p>Watch on mobile, tablet, smart TVs, or your computer.</p>
+        <h4>📺 HD Quality</h4>
+        <p>Enjoy smooth, buffer-free matches in HD quality from any device.</p>
       </div>
       <div class="card">
-        <h4>Worldwide Coverage</h4>
-        <p>Enjoy international channels and events from anywhere.</p>
+        <h4>🌍 Global Coverage</h4>
+        <p>From ICC tournaments to UEFA leagues, stream events worldwide.</p>
+      </div>
+      <div class="card">
+        <h4>📱 Any Device</h4>
+        <p>Works on mobile, desktop, smart TVs and tablets seamlessly.</p>
       </div>
     </div>
+  </section>
+
+  <!-- Live Match Schedule -->
+  <section id="schedule" class="schedule">
+    <h3>📅 Live Match Schedule</h3>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Match</th>
+        <th>League/Tournament</th>
+        <th>Time (GMT)</th>
+      </tr>
+      <tr>
+        <td>16 Aug 2025</td>
+        <td>Nepal vs NT Cricket Club</td>
+        <td>Top End T20 Series</td>
+        <td>04:00 AM</td>
+      </tr>
+      <tr>
+        <td>17 Aug 2025</td>
+        <td>Manchester United vs Chelsea</td>
+        <td>English Premier League</td>
+        <td>06:30 PM</td>
+      </tr>
+      <tr>
+        <td>18 Aug 2025</td>
+        <td>India vs Australia</td>
+        <td>ICC Test Championship</td>
+        <td>09:00 AM</td>
+      </tr>
+      <tr>
+        <td>19 Aug 2025</td>
+        <td>Barcelona vs Real Madrid</td>
+        <td>La Liga</td>
+        <td>08:00 PM</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h3>Never Miss a Match Again!</h3>
+    <p>Watch cricket and football live — free for everyone, anytime, anywhere.</p>
+    <a href="#live" class="btn">Watch Now</a>
   </section>
 
   <!-- Footer -->
   <footer>
-    © <span id="year"></span> Kasin TV. All Rights Reserved.
+    <p>© <span id="year"></span> KaSin TV | Live Cricket & Football Free Streaming</p>
   </footer>
 
-  <!-- JS for dynamic year -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
