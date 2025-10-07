@@ -1,0 +1,40 @@
+
+       <!DOCTYPE html>
+    <html>
+    <head>
+        <title>TNT1 Sports - JW Player</title>
+        <script src="https://cdn.jwplayer.com/libraries/KB5zFt7A.js"></script>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; }
+            #player { width: 100%; height: 100vh; }
+            .info-bar { position: absolute; top: 0; left: 0; right: 0; background: rgba(0,0,0,0.8); color: white; padding: 15px; z-index: 1000; text-align: center; font-size: 18px; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <div class="info-bar">TNT1 Sports</div>
+        <div id="player"></div>
+        <script>
+            var player = jwplayer("player");
+            player.setup({
+                playlist: [{
+                    file: "https://ottb.live.cf.ww.aiv-cdn.net/lhr-nitro/live/dash/enc/rdznpzcmct/out/v1/355324ed98a94cbebbaff4bad0cd28ce/cenc.mpd",
+                    drm: {
+                        clearkey: {
+                            keyId: "5deb190b1dac28e46c0bdada7668b7de",
+                            key: "ddd2b372702e42b0d2708a70b91dec8d"
+                        }
+                    }
+                }],
+                width: "100%",
+                height: "100%",
+                aspectratio: "16:9",
+                autostart: true,
+                controls: true,
+                displaytitle: true,
+                title: "TNT1 Sports"
+            });
+        </script>
+    </body>
+    </html>
+    
