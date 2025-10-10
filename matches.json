@@ -1,0 +1,97 @@
+{
+  "matches": [
+    {
+      "match_id": "wcqeur01",
+      "title": "Germany vs Luxembourg",
+      "teams": {
+        "home": {
+          "name": "Germany",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9823.png"
+        },
+        "away": {
+          "name": "Luxembourg",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9907.png"
+        }
+      },
+      "match_info": {
+        "start_time": "2025-10-10T19:45:00+00:00",
+        "end_time": "2025-10-10T21:45:00+00:00",
+        "display_time": "7:45 PM",
+        "status": "vs"
+      },
+      "links": {
+        "watch": ""
+      }
+    },
+    {
+      "match_id": "wcqeur02",
+      "title": "Belgium vs North Macedonia",
+      "teams": {
+        "home": {
+          "name": "Belgium",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/8586.png"
+        },
+        "away": {
+          "name": "North Macedonia",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9926.png"
+        }
+      },
+      "match_info": {
+        "start_time": "2025-10-10T19:45:00+00:00",
+        "end_time": "2025-10-10T21:45:00+00:00",
+        "display_time": "7:45 PM",
+        "status": "vs"
+      },
+      "links": {
+        "watch": ""
+      }
+    },
+    {
+      "match_id": "intlfr01",
+      "title": "Japan vs Paraguay",
+      "teams": {
+        "home": {
+          "name": "Japan",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9824.png"
+        },
+        "away": {
+          "name": "Paraguay",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9829.png"
+        }
+      },
+      "match_info": {
+        "start_time": "2025-10-10T11:20:00+00:00",
+        "end_time": "2025-10-10T13:20:00+00:00",
+        "display_time": "11:20 AM",
+        "status": "finished"
+      },
+      "links": {
+        "watch": ""
+      }
+    },
+    {
+      "match_id": "intlfr02",
+      "title": "South Korea vs Brazil",
+      "teams": {
+        "home": {
+          "name": "South Korea",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9830.png"
+        },
+        "away": {
+          "name": "Brazil",
+          "logo": "https://images.fotmob.com/image_resources/logo/teamlogo/9822.png"
+        }
+      },
+      "match_info": {
+        "start_time": "2025-10-10T12:00:00+00:00",
+        "end_time": "2025-10-10T14:00:00+00:00",
+        "display_time": "12:00 PM",
+        "status": "finished"
+      },
+      "links": {
+        "watch": ""
+      }
+    }
+  ],
+  "last_updated": "2025-10-10T12:00:00Z"
+}
