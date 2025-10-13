@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>live stremaing link with id</title>
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        background: #000;
+        text-align: center;
+        font-family: Tahoma, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #player {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      #text {
+        position: fixed;
+        bottom: 20px;
+        width: 100%;
+        font-size: 18px;
+        color: #fff;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="player" allowfullscreen loading="lazy"></iframe>
+    <div id="text">Now Playing</div>
+
+    <script>
+      // Safe, legal sources only
+      const channels = {
+        mancity: "https://www.youtube.com/embed/live_stream?channel=UCkzCjdRMrW2vXLx8mvPVLdQ", // Example official channel
+        realmadrid: "https://www.youtube.com/embed/live_stream?channel=UCWV3obpZVGgJ3j9FVhEjF2Q",
+        liverpool: "https://www.youtube.com/embed/live_stream?channel=UC9LQwHZoucFT94I2h6JOcjw",
+        bbcnews: "https://www.youtube.com/embed/live_stream?channel=UC16niRr50-MSBwiO3YDb3RA",
+        espn: "https://www.youtube.com/embed/live_stream?channel=UCiWLfSweyRNmLpgEHekhoAg",
+        twitchsports: "https://player.twitch.tv/?channel=twitchsports&parent=yourdomain.com"
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const channel = params.get("id");
+      const iframe = document.getElementById("player");
+      const text = document.getElementById("text");
+
+      if (channels[channel]) {
+        iframe.src = channels[channel];
+        text.textContent = "Now Playing: " + channel;
+      } else {
+        iframe.src = "https://www.youtube.com/embed/live_stream?channel=UC16niRr50-MSBwiO3YDb3RA"; // BBC default
+        text.textContent = "Default Stream: BBC News Live";
+      }
+    </script>
+  </body>
+</html>
