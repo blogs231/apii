@@ -1,63 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>live stremaing link with id</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Streaming Player</title>
     <style>
       body {
-        height: 100vh;
         margin: 0;
         padding: 0;
-        color: #fff;
+        height: 100vh;
         background: #000;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
         text-align: center;
-        font-family: Tahoma, sans-serif;
-        -webkit-font-smoothing: antialiased;
       }
 
-      #player {
+      #player-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      iframe,
+      video,
+      img {
         width: 100%;
         height: 100%;
         border: none;
+        object-fit: contain;
+        background: #000;
       }
 
       #text {
         position: fixed;
-        bottom: 20px;
+        bottom: 10px;
         width: 100%;
+        text-align: center;
         font-size: 18px;
         color: #fff;
-        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
       }
     </style>
   </head>
+
   <body>
-    <iframe id="player" allowfullscreen loading="lazy"></iframe>
-    <div id="text">Now Playing</div>
+    <div id="player-wrapper"></div>
+    <div id="text">Loading...</div>
 
     <script>
-      // Safe, legal sources only
-      const channels = {
-        nepal1: "https://embedsports.top/embed/alpha/nepal-vs-vietnam/1", // Example official channel
+      const sources = {
+        nepal1: "https://embedsports.top/embed/alpha/nepal-vs-vietnam/1",
         nepal2: "https://www.youtube.com/embed/live_stream?channel=UCWV3obpZVGgJ3j9FVhEjF2Q",
-        nepal2: "https://www.youtube.com/embed/live_stream?channel=UC9LQwHZoucFT94I2h6JOcjw",
-        bbcnews: "https://www.youtube.com/embed/live_stream?channel=UC16niRr50-MSBwiO3YDb3RA",
-        espn: "https://www.youtube.com/embed/live_stream?channel=UCiWLfSweyRNmLpgEHekhoAg",
-        twitchsports: "https://player.twitch.tv/?channel=twitchsports&parent=yourdomain.com"
+        samplem3u8: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        samplemp4: "https://www.w3schools.com/html/mov_bbb.mp4",
+        sampleimg: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png",
       };
 
       const params = new URLSearchParams(window.location.search);
-      const channel = params.get("id");
-      const iframe = document.getElementById("player");
+      const id = params.get("id");
+      const url = sources[id] || sources.nepal1;
+
+      const wrapper = document.getElementById("player-wrapper");
       const text = document.getElementById("text");
 
-      if (channels[channel]) {
-        iframe.src = channels[channel];
-        text.textContent = "Now Playing: " + channel;
+      function createIframe(src) {
+        const iframe = document.createElement("iframe");
+        iframe.src = src;
+        iframe.allowFullscreen = true;
+        iframe.loading = "lazy";
+        wrapper.appendChild(iframe);
+      }
+
+      function createVideo(src) {
+        const video = document.createElement("video");
+        video.src = src;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.type = "application/x-mpegURL";
+        wrapper.appendChild(video);
+      }
+
+      function createImage(src) {
+        const img = document.createElement("img");
+        img.src = src;
+        wrapper.appendChild(img);
+      }
+
+      // Detect type automatically
+      if (url.endsWith(".m3u8")) {
+        createVideo(url);
+        text.textContent = "Now Playing: HLS Stream (" + id + ")";
+      } else if (url.endsWith(".mp4") || url.endsWith(".webm")) {
+        createVideo(url);
+        text.textContent = "Now Playing: Video File (" + id + ")";
+      } else if (url.match(/\.(jpeg|jpg|png|gif|webp)$/i)) {
+        createImage(url);
+        text.textContent = "Displaying Image: " + id;
+      } else if (url.includes("http")) {
+        createIframe(url);
+        text.textContent = "Now Playing: " + id;
       } else {
-        iframe.src = "https://www.youtube.com/embed/qz_CnK8IzxI"; // BBC default
-        text.textContent = "Default Stream: BBC News Live";
+        text.textContent = "Invalid source link!";
       }
     </script>
   </body>
