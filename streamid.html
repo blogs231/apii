@@ -1,113 +1,65 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Live Streaming Player</title>
+  <head> <!--Updates-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool'></script>
+    <title> Stream links with v </title>
     <style>
       body {
+        height: 100vh;
         margin: 0;
         padding: 0;
-        height: 100vh;
-        background: #000;
         color: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
         text-align: center;
-      }
-
-      #player-wrapper {
-        width: 100%;
-        height: 100%;
-        position: relative;
         overflow: hidden;
+        font-family: Tahoma, sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
 
-      iframe,
-      video,
-      img {
+      #player {
         width: 100%;
         height: 100%;
         border: none;
-        object-fit: contain;
-        background: #000;
       }
 
       #text {
         position: fixed;
-        bottom: 10px;
+        bottom: 50px;
         width: 100%;
-        text-align: center;
-        font-size: 18px;
+        font-size: 20px;
         color: #fff;
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        z-index: 9999;
       }
     </style>
   </head>
-
   <body>
-    <div id="player-wrapper"></div>
-    <div id="text">Loading...</div>
-
+    <iframe id="player" loading="lazy" allowfullscreen></iframe>
     <script>
-      const sources = {
-        nepal1: "https://embedsports.top/embed/alpha/nepal-vs-vietnam/1",
-        nepal2: "https://topembed.pw/channel/ex8711897",
-        samplem3u8: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-        samplemp4: "https://www.w3schools.com/html/mov_bbb.mp4",
-        sampleimg: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png",
+      const channels = {
+
+
+  
+        //Cricket Live Stream
+        willow: " https://blogs231.github.io/apii/noads.html?src=https://topembed.pw/channel/WillovTV[USA] ", 
+        fox501: " https://blogs231.github.io/apii/hls.html?url=https://hugh.cdn.rumble.cloud/live/y16rq9u0/slot-21/8wef-hiy9/chunklist.m3u8 ", 
+        india1: " https://embedsports.top/embed/alpha/australia-vs-india/1 ", 
+        kantipur: " https://hlsplayers.pages.dev/dmca?url=https://webott.viatv.com.np/v0t1/KntCineplexTv.stream/playlist.m3u8 ",
+        tnt1:"	https://embedsports.top/embed/hotel/1st-odi-australia-vs-india/2"
+        
+
+  
       };
+      const urlParams = new URLSearchParams(window.location.search);
+      const channel = urlParams.get('v');
 
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
-      const url = sources[id] || sources.nepal1;
-
-      const wrapper = document.getElementById("player-wrapper");
-      const text = document.getElementById("text");
-
-      function createIframe(src) {
-        const iframe = document.createElement("iframe");
-        iframe.src = src;
-        iframe.allowFullscreen = true;
-        iframe.loading = "lazy";
-        wrapper.appendChild(iframe);
+      function setChannel(channel) {
+        const iframe = document.getElementById('player');
+        iframe.src = channels[channel] || channels.tnt1;
       }
-
-      function createVideo(src) {
-        const video = document.createElement("video");
-        video.src = src;
-        video.controls = true;
-        video.autoplay = true;
-        video.playsInline = true;
-        video.type = "application/x-mpegURL";
-        wrapper.appendChild(video);
-      }
-
-      function createImage(src) {
-        const img = document.createElement("img");
-        img.src = src;
-        wrapper.appendChild(img);
-      }
-
-      // Detect type automatically
-      if (url.endsWith(".m3u8")) {
-        createVideo(url);
-        text.textContent = "Now Playing: HLS Stream (" + id + ")";
-      } else if (url.endsWith(".mp4") || url.endsWith(".webm")) {
-        createVideo(url);
-        text.textContent = "Now Playing: Video File (" + id + ")";
-      } else if (url.match(/\.(jpeg|jpg|png|gif|webp)$/i)) {
-        createImage(url);
-        text.textContent = "Displaying Image: " + id;
-      } else if (url.includes("http")) {
-        createIframe(url);
-        text.textContent = "Now Playing: " + id;
-      } else {
-        text.textContent = "Invalid source link!";
-      }
+      setChannel(channel);
     </script>
   </body>
 </html>
