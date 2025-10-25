@@ -9,7 +9,7 @@
   <meta name="keywords" content="KaSin TV, live sports, cricket live, football streaming, HD player, KaSin Alpha, sports live, watch online">
   <meta name="author" content="KaSin TV">
 
-  <!-- Open Graph (Facebook, WhatsApp, etc.) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="KaSin TV Alpha Player | Live Sports Streaming">
   <meta property="og:description" content="Stream live sports in HD on KaSin TV Alpha Player. Enjoy cricket, football, and more — free and fast.">
   <meta property="og:image" content="https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png">
@@ -58,6 +58,7 @@
       background: #000;
       color: #fff;
       font-family: "Poppins", sans-serif;
+      overflow: hidden;
     }
 
     #player-container {
@@ -65,8 +66,23 @@
       width: 100%;
       height: 100vh;
       overflow: hidden;
+      background: #000;
     }
 
+    /* Poster Image */
+    #poster {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+      z-index: 2;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Iframe Player */
     #player-iframe {
       position: absolute;
       top: 0;
@@ -74,8 +90,10 @@
       width: 100%;
       height: 100%;
       border: none;
+      z-index: 1;
     }
 
+    /* Branding Text */
     #branding-text {
       position: fixed;
       bottom: 20px;
@@ -84,7 +102,7 @@
       color: #fff;
       font-size: 18px;
       font-weight: 500;
-      z-index: 9999;
+      z-index: 3;
       opacity: 0.7;
     }
   </style>
@@ -92,15 +110,40 @@
 
 <body>
   <main id="player-container" role="main">
-    <iframe id="player-iframe" title="KaSin TV Alpha Live Player" allowfullscreen loading="lazy"></iframe>
+    <!-- Poster (displays before iframe loads) -->
+    <img
+      id="poster"
+      src="https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png"
+      alt="KaSin TV Poster"
+    >
+
+    <!-- Iframe Player -->
+    <iframe
+      id="player-iframe"
+      title="KaSin TV Alpha Live Player"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+
     <div id="branding-text">Powered by kasin-tv.com</div>
   </main>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const customID = urlParams.get('v');
-    const originalURL = `https://embedsports.top/embed/alpha/${customID}/1`;
-    document.getElementById('player-iframe').src = originalURL;
+    const iframe = document.getElementById('player-iframe');
+    const poster = document.getElementById('poster');
+
+    if (customID) {
+      const originalURL = `https://embedsports.top/embed/alpha/${customID}/1`;
+      iframe.src = originalURL;
+    }
+
+    // Hide poster smoothly when iframe loads
+    iframe.addEventListener('load', () => {
+      poster.style.opacity = '0';
+      setTimeout(() => poster.style.display = 'none', 500);
+    });
   </script>
 </body>
 </html>
