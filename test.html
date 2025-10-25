@@ -1,34 +1,137 @@
-<div id="player-container">
-  <img id="poster" src="https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png" alt="Poster">
-  <button id="play-btn">▶ Play</button>
-  <iframe id="player-iframe" allowfullscreen loading="lazy" style="display:none"></iframe>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Essential Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KaSin TV Alpha Player | Live Sports Streaming</title>
+  <meta name="description" content="Watch live sports, cricket, football, and more on KaSin TV Alpha Player. Stream in HD with smooth playback and no interruptions." />
+  <meta name="keywords" content="KaSin TV, live sports, cricket live, football streaming, HD player, KaSin Alpha, sports live, watch online" />
+  <meta name="author" content="KaSin TV" />
 
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const customID = urlParams.get('v');
-  const iframe = document.getElementById('player-iframe');
-  const poster = document.getElementById('poster');
-  const playBtn = document.getElementById('play-btn');
+  <!-- Open Graph -->
+  <meta property="og:title" content="KaSin TV Alpha Player | Live Sports Streaming" />
+  <meta property="og:description" content="Stream live sports in HD on KaSin TV Alpha Player. Enjoy cricket, football, and more — free and fast." />
+  <meta property="og:image" content="https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png" />
+  <meta property="og:url" content="https://kasin-tv.com/" />
+  <meta property="og:type" content="video.other" />
 
-  const originalURL = `https://embedsports.top/embed/alpha/${customID}/1`;
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="KaSin TV Alpha Player | Live Sports Streaming" />
+  <meta name="twitter:description" content="Stream your favorite live sports matches in HD on KaSin TV Alpha Player." />
+  <meta name="twitter:image" content="https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png" />
 
-  playBtn.addEventListener('click', () => {
-    iframe.src = originalURL;
-    iframe.style.display = 'block';
-    poster.style.display = 'none';
-    playBtn.style.display = 'none';
-  });
-</script>
+  <!-- Canonical -->
+  <link rel="canonical" href="https://kasin-tv.com/" />
 
-<style>
-#player-container { position: relative; width:100%; height:100vh; background:#000; }
-#poster, #play-btn, iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
-#poster { object-fit:cover; }
-#play-btn {
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.4);
-  color:#fff; font-size:48px; font-weight:bold;
-  border:none; cursor:pointer;
-}
-</style>
+  <!-- Favicon -->
+  <link rel="icon" href="https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png" type="image/x-icon" />
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "KaSin TV Alpha Player",
+    "description": "Watch live sports in HD on KaSin TV Alpha Player.",
+    "thumbnailUrl": "https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png",
+    "uploadDate": "2025-10-25",
+    "embedUrl": "https://embedsports.top/embed/alpha/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "KaSin TV",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png"
+      }
+    }
+  }
+  </script>
+
+  <!-- Styles -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: #000;
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+    }
+
+    #player-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #poster {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 2;
+      transition: opacity 0.5s ease;
+    }
+
+    #player-iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      z-index: 1;
+    }
+
+    #branding-text {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      z-index: 3;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+  <main id="player-container" role="main">
+    <img id="poster" src="https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png" alt="KaSin TV Poster" />
+    <iframe
+      id="player-iframe"
+      title="KaSin TV Alpha Live Player"
+      allowfullscreen
+      loading="lazy"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-fullscreen"
+    ></iframe>
+    <div id="branding-text">Powered by kasin-tv.com</div>
+  </main>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const customID = urlParams.get("v");
+    const iframe = document.getElementById("player-iframe");
+    const poster = document.getElementById("poster");
+
+    if (customID) {
+      const originalURL = `https://embedsports.top/embed/alpha/${customID}/1`;
+      iframe.src = originalURL;
+    }
+
+    iframe.addEventListener("load", () => {
+      poster.style.opacity = "0";
+      setTimeout(() => (poster.style.display = "none"), 500);
+    });
+  </script>
+</body>
+</html>
