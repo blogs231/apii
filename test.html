@@ -1,0 +1,34 @@
+<div id="player-container">
+  <img id="poster" src="https://kasin-tv.com/wp-content/uploads/2025/09/kasin-tv.png" alt="Poster">
+  <button id="play-btn">▶ Play</button>
+  <iframe id="player-iframe" allowfullscreen loading="lazy" style="display:none"></iframe>
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const customID = urlParams.get('v');
+  const iframe = document.getElementById('player-iframe');
+  const poster = document.getElementById('poster');
+  const playBtn = document.getElementById('play-btn');
+
+  const originalURL = `https://embedsports.top/embed/alpha/${customID}/1`;
+
+  playBtn.addEventListener('click', () => {
+    iframe.src = originalURL;
+    iframe.style.display = 'block';
+    poster.style.display = 'none';
+    playBtn.style.display = 'none';
+  });
+</script>
+
+<style>
+#player-container { position: relative; width:100%; height:100vh; background:#000; }
+#poster, #play-btn, iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+#poster { object-fit:cover; }
+#play-btn {
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.4);
+  color:#fff; font-size:48px; font-weight:bold;
+  border:none; cursor:pointer;
+}
+</style>
