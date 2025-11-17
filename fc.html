@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DASH Player (Autoplay)</title>
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+        #videoContainer {
+            max-width: 900px;
+            margin: 20px auto;
+        }
+        video {
+            width: 100%;
+            border-radius: 8px;
+            background: #000;
+        }
+        #controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align:center;">DASH Video Player (Autoplay Enabled)</h1>
+
+    <div id="videoContainer">
+        <video id="videoPlayer" controls></video>
+    </div>
+
+    <div id="controls">
+        <button id="playBtn">Play</button>
+        <button id="autoQualityBtn">Toggle Auto Quality</button>
+    </div>
+
+    <script>
+        // ---------- Configuration ----------
+        const CONFIG = {
+            mpdUrl: "https://a204aivottepl-a.akamaihd.net/sin-nitro/live/clients/dash/enc/fdb3pubmek/out/v1/aefca6420f944a9482e117f315de535f/cenc.mpd",
+            clearKey: "7e9239c1982d984a002df3ed049d0756:1b8a17598129a3618535c8fb05f103fe",
+            autoplay: true
+        };
+
+        // Parse KID:KEY into object
+        const [kid, ckey] = CONFIG.clearKey.split(":");
+        const clearkeyData = {
+            "org.w3.clearkey": {
+                clearkeys: {
+                    [kid]: ckey
+                }
+            }
+        };
+
+        // ---------- Player Setup ----------
+        const video = document.getElementById("videoPlayer");
+        const player = dashjs.MediaPlayer().create();
+
+        // Required for autoplay on modern browsers
+        video.muted = true;
+
+        player.updateSettings({
+            streaming: {
+                fastSwitchEnabled: true,
+                abr: {
+                    autoSwitchBitrate: { video: true }
+                }
+            }
+        });
+
+        // Initialize with autoplay enabled
+        player.initialize(video, CONFIG.mpdUrl, true);
+
+        // Load ClearKey when manifest is ready
+        player.on(dashjs.MediaPlayer.events.MANIFEST_LOADED, () => {
+            console.log("Manifest loaded.");
+            player.setProtectionData(clearkeyData);
+        });
+
+        // Optional: Unmute when video starts playing
+        player.on(dashjs.MediaPlayer.events.PLAYBACK_STARTED, () => {
+            console.log("Playback started 🎬");
+            video.muted = false; 
+        });
+
+        // Logging
+        player.on(dashjs.MediaPlayer.events.ERROR, e => {
+            console.error("DASH Error:", e);
+            alert("Playback error: " + (e?.error?.message || "Unknown"));
+        });
+
+        // ---------- Custom UI Buttons ----------
+        document.getElementById("playBtn").onclick = () => player.play();
+
+        document.getElementById("autoQualityBtn").onclick = () => {
+            const current = player.getSettings().streaming.abr.autoSwitchBitrate.video;
+            player.updateSettings({
+                streaming: {
+                    abr: { autoSwitchBitrate: { video: !current } }
+                }
+            });
+            alert("Auto-quality now " + (!current ? "ON" : "OFF"));
+        };
+    </script>
+</body>
+</html>
