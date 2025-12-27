@@ -5,32 +5,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shaka Player Normal Page</title>
+<title>Shaka Player Fullscreen</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.6/controls.min.css">
 
 <style>
-body {
+html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
     background: #000;
+    overflow: hidden;
     font-family: Arial, sans-serif;
 }
 
+/* Fullscreen wrapper */
 .page-wrapper {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 0 15px;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
+/* Player container */
 #player-container {
-    width: 100%;
-    aspect-ratio: 16/9;
-    position: relative;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
     background: #000;
 }
 
+/* Video */
 video.shaka-video {
     width: 100%;
     height: 100%;
@@ -38,6 +46,7 @@ video.shaka-video {
     background: #000;
 }
 
+/* Loader */
 #custom-loader {
     position: absolute;
     inset: 0;
@@ -54,6 +63,7 @@ video.shaka-video {
     max-width: 300px;
 }
 
+/* Watermark */
 .video-watermark {
     position: absolute;
     top: 12px;
@@ -61,18 +71,21 @@ video.shaka-video {
     width: 100px;
     opacity: 0.8;
     pointer-events: none;
-    z-index: 10;
+    z-index: 15;
 }
 
+/* Controls */
 .shaka-controls-container {
-    z-index: 15;
+    z-index: 30;
     background: transparent;
 }
 
+/* Hide Shaka spinner */
 .shaka-spinner-container {
     display: none;
 }
 
+/* Seek bar color */
 .shaka-seek-bar-container .shaka-range-element {
     --shaka-main-color: #ff0000;
 }
@@ -84,6 +97,7 @@ video.shaka-video {
 <div class="page-wrapper">
 
     <div id="player-container">
+
         <div id="custom-loader">
             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjcEQ_s4WpL8XEreAundkm5MUFohNxcFoQK8a3glLz2B3GrGi2Z7kt3f_wtJta-dnD0yLCCR2c7jt_59P3Ih0ln-r2lpGrTY0bB9bIguS1XGfqKFVZVwQiAQqhQdmttfG0Efq-ZFXkJzxvp712XeHBZbebl1YX693PDnibVSDxk60Qi284/s1600/KASIN%20TV.png">
         </div>
@@ -92,6 +106,7 @@ video.shaka-video {
         class="video-watermark">
 
         <video id="video" autoplay muted playsinline class="shaka-video"></video>
+
     </div>
 
 </div>
@@ -106,8 +121,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loader = document.getElementById('custom-loader');
 
     const player = new shaka.Player(video);
-
     const ui = new shaka.ui.Overlay(player, container, video);
+
     ui.configure({
         controlPanelElements: [
             'play_pause',
@@ -147,9 +162,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     );
 
     video.play();
+
+    // Real fullscreen on first tap/click
+    document.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+        }
+    }, { once: true });
+
 });
 </script>
 
 </body>
 </html>
-
