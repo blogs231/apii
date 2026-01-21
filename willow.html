@@ -1,68 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen JW Player</title>
-    <script src="https://ssl.p.jwpcdn.com/player/v/8.32.1/jwplayer.js" type="text/javascript"></script>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-        }
+  <meta charset="UTF-8">
+  <title>Shaka Player Fullscreen</title>
 
-        #player-container {
-            width: 100%;
-            height: 100%;
-        }
+  <!-- Shaka Player -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.compiled.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.css" />
 
-        /* Custom scrollbar styles (optional) */
-        body::-webkit-scrollbar {
-            width: 8px;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      font-family: Arial, sans-serif;
+    }
 
-        body::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: rgba(140, 140, 140, 0.5);
-        }
+    #player-container {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: auto;
+      aspect-ratio: 16 / 9;
+      background: black;
+    }
 
-        body::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(140, 140, 140, 0.7);
-        }
-    </style>
+    video {
+      width: 100%;
+      height: 100%;
+    }
+
+    #status-message {
+      color: #0f0;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="player-container"></div>
 
-    <script type="text/javascript">
-        jwplayer.key = 'XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo';
-        jwplayer("player-container").setup({
-            file: "https://otte.live.fly.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/o25bbufx7o/out/v1/7779ab5da6594e0ab9feaecf0488bba2/cenc.mpd",
-            width: '100%',
-            height: '100%',
-            autostart: false,
-            image: 'https://mma.prnewswire.com/media/1919551/WillowTV_Logo.jpg?p=facebook',
-            mute: false,
-            preload: 'auto',
-            captions: { color: 'white', fontSize: '16px', backgroundOpacity: 0 },
-            sharing: {
-                sites: ['facebook', 'twitter']
-            },
-            drm: {
-                "clearkey": {
-                    "keyId": "72601d49b57352c5a614777dbff85740",
-                    "key": "9889ef320e9098aff075ced4452c34d9"
-                }
-            }
-        });
+  <div id="player-container">
+    <video id="video" class="shaka-video" playsinline></video>
+  </div>
 
-        jwplayer("player-container").on('error', function (e) {
-            console.error("Playback error:", e.message);
-        });
-    </script>
+  <div id="status-message">Loading stream…</div>
+
+  <script>
+    async function initPlayer() {
+      const video = document.getElementById('video');
+      const container = document.getElementById('player-container');
+      const status = document.getElementById('status-message');
+
+      shaka.polyfill.installAll();
+
+      if (!shaka.Player.isBrowserSupported()) {
+        status.textContent = "❌ Browser not supported";
+        return;
+      }
+
+      // Create player
+      const player = new shaka.Player(video);
+
+      // Create UI (THIS enables fullscreen properly)
+      const ui = new shaka.ui.Overlay(player, container, video);
+      const controls = ui.getControls();
+
+      // UI configuration (includes fullscreen button)
+      ui.configure({
+        controlPanelElements: [
+          'play_pause',
+          'time_and_duration',
+          'spacer',
+          'mute',
+          'volume',
+          'fullscreen'
+        ],
+        addSeekBar: true
+      });
+
+      // Player config
+      player.configure({
+        streaming: {
+          bufferingGoal: 10,
+          rebufferingGoal: 2,
+          lowLatencyMode: true
+        },
+        manifest: {
+          dash: {
+            ignoreMinBufferTime: true
+          }
+        },
+        drm: {
+          clearKeys: {
+            '1e23e51b09a67b83813c17049870bcd4':
+            'c3d6288e378b0dc55320fd0e6fd2e55f'
+          }
+        }
+      });
+
+      const streamUrl =
+        "https://neacdnpop3-edge02.aws.playco.com/live/eds/CricLife1/DASH/CricLife1.mpd";
+
+      try {
+        await player.load(streamUrl);
+        status.textContent = "✅ Stream loaded";
+
+        // Autoplay handling
+        try {
+          video.muted = false;
+          await video.play();
+        } catch {
+          video.muted = true;
+          await video.play();
+        }
+      } catch (err) {
+        console.error(err);
+        status.textContent = "⚠️ Stream failed to load";
+      }
+
+      // Error handling
+      player.addEventListener('error', e => {
+        console.error('Shaka error', e.detail);
+        status.textContent = "⚠️ Playback error";
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initPlayer);
+  </script>
+
+  <!-- Optional: disable devtools -->
+  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest"></script>
+
 </body>
 </html>
