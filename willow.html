@@ -1,100 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>IPTV Ultra Player</title>
+<title>Ultra Player</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.min.css"/>
 
 <style>
 
-html,body{
-margin:0;
-height:100%;
-background:black;
-overflow:hidden;
-font-family:Arial;
+html, body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:black;
+  overflow:hidden;
+  font-family:Arial;
 }
 
+/* PLAYER */
 #player-container{
-position:fixed;
-inset:0;
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  background:black;
 }
 
 video{
-width:100%;
-height:100%;
-object-fit:cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:black;
 }
 
 /* Loader */
 #loader{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-border:6px solid #222;
-border-top:6px solid white;
-border-radius:50%;
-width:65px;
-height:65px;
-animation:spin 1s linear infinite;
-z-index:999;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  border:6px solid #222;
+  border-top:6px solid #fff;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  animation:spin 1s linear infinite;
+  z-index:9999;
 }
 
 @keyframes spin{
-to{transform:translate(-50%,-50%) rotate(360deg);}
+  to{ transform:translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Logo */
-#logo{
-position:absolute;
-top:15px;
-left:20px;
-z-index:999;
+/* Watermark */
+#watermark{
+  position:absolute;
+  top:15px;
+  right:20px;
+  z-index:999;
+  opacity:.85;
 }
 
-#logo img{
-width:120px;
-opacity:.9;
+#watermark img{
+  width:120px;
 }
 
 /* Status */
 #status{
-position:absolute;
-bottom:20px;
-left:20px;
-color:white;
-font-size:14px;
-opacity:.8;
-}
-
-/* Channel Buttons */
-#channels{
-position:absolute;
-right:20px;
-top:50%;
-transform:translateY(-50%);
-z-index:999;
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.channel-btn{
-background:rgba(0,0,0,.6);
-color:white;
-border:1px solid rgba(255,255,255,.2);
-padding:8px 12px;
-cursor:pointer;
-border-radius:6px;
-}
-
-.channel-btn:hover{
-background:rgba(255,255,255,.2);
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  color:white;
+  font-size:14px;
+  opacity:.7;
 }
 
 </style>
@@ -103,206 +85,149 @@ background:rgba(255,255,255,.2);
 <body>
 
 <div id="player-container">
+    <div id="loader"></div>
 
-<div id="loader"></div>
+    <!-- CHANGE LOGO HERE -->
+    <div id="watermark">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
+    </div>
 
-<div id="logo">
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
+    <video id="video" autoplay playsinline></video>
+
+    <div id="status">Initializing player...</div>
 </div>
 
-<video id="video" autoplay playsinline></video>
-
-<div id="status">Starting IPTV...</div>
-
-<!-- Example Channel Switch -->
-<div id="channels">
-<button class="channel-btn" onclick="switchChannel(0)">Channel 1</button>
-<button class="channel-btn" onclick="switchChannel(1)">Channel 2</button>
-</div>
-
-</div>
 
 <script>
 
-const channels = [
+const streamUrl =
+"https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/feh5lmnfkl/out/v1/2f30a0bcdbc64a09b2e101d0b71ed290/cenc.mpd";
 
-{
-name:"Channel 1",
-url:"https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/feh5lmnfkl/out/v1/2f30a0bcdbc64a09b2e101d0b71ed290/cenc.mpd",
-clearKey:{
-'dc9ab6bff6028c1685847a104e2d5a21':'de34baecf3f167ad1c847836397d38ca'
-}
-},
-
-{
-name:"Channel 2",
-url:"PUT_SECOND_STREAM_HERE",
-clearKey:{
-'KEY':'KEY'
-}
-}
-
-];
-
-let player;
-let video=document.getElementById("video");
 
 function fullscreen(){
-const el=document.getElementById("player-container");
-if(el.requestFullscreen) el.requestFullscreen();
+    const elem=document.getElementById("player-container");
+
+    if(elem.requestFullscreen) elem.requestFullscreen();
+    else if(elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
 }
 
-/* Hide cursor */
+/* Cursor hide */
 let cursorTimer;
 document.addEventListener("mousemove",()=>{
-document.body.style.cursor="default";
+    document.body.style.cursor="default";
 
-clearTimeout(cursorTimer);
-cursorTimer=setTimeout(()=>{
-document.body.style.cursor="none";
-},2000);
+    clearTimeout(cursorTimer);
+    cursorTimer=setTimeout(()=>{
+        document.body.style.cursor="none";
+    },2000);
 });
-
-/* Keyboard controls */
-document.addEventListener("keydown",(e)=>{
-
-if(e.key==="f") fullscreen();
-
-if(e.key==="m") video.muted=!video.muted;
-
-if(e.key==="p"){
-if(document.pictureInPictureElement){
-document.exitPictureInPicture();
-}else{
-video.requestPictureInPicture();
-}
-}
-
-});
-
-/* Init */
-async function init(){
-
-shaka.polyfill.installAll();
-
-player=new shaka.Player(video);
-
-new shaka.ui.Overlay(player,
-document.getElementById('player-container'),
-video);
-
-player.configure({
-
-streaming:{
-bufferingGoal:30,
-rebufferingGoal:1,
-bufferBehind:60,
-lowLatencyMode:true,
-retryParameters:{
-maxAttempts:5,
-baseDelay:1000
-}
-},
-
-abr:{
-enabled:true,
-switchInterval:2
-}
-
-});
-
-switchChannel(0);
-
-/* Auto reconnect */
-player.addEventListener('error',()=>{
-document.getElementById("status").innerText="Reconnecting...";
-setTimeout(()=>switchChannel(currentChannel),2000);
-});
-
-}
-
-let currentChannel=0;
-
-async function switchChannel(index){
-
-currentChannel=index;
-
-const ch=channels[index];
-
-document.getElementById("loader").style.display="block";
-document.getElementById("status").innerText="Switching to "+ch.name;
-
-try{
-
-player.configure({
-drm:{clearKeys:ch.clearKey}
-});
-
-await player.load(ch.url);
-
-document.getElementById("loader").style.display="none";
-document.getElementById("status").innerText="LIVE • "+ch.name;
-
-video.play();
-
-fullscreen();
-
-loadQualitySelector();
-
-}catch{
-document.getElementById("status").innerText="Stream failed... retrying";
-setTimeout(()=>switchChannel(index),3000);
-}
-
-}
-
-/* QUALITY SELECTOR */
-function loadQualitySelector(){
-
-const tracks=player.getVariantTracks();
-
-if(!tracks.length) return;
-
-let menu=document.getElementById("quality");
-
-if(!menu){
-
-menu=document.createElement("select");
-menu.id="quality";
-menu.style.position="absolute";
-menu.style.bottom="20px";
-menu.style.right="20px";
-menu.style.zIndex="999";
-
-document.getElementById("player-container").appendChild(menu);
-}
-
-menu.innerHTML="";
-
-tracks.forEach(track=>{
-const opt=document.createElement("option");
-opt.value=track.id;
-opt.innerText=track.height+"p";
-menu.appendChild(opt);
-});
-
-menu.onchange=(e)=>{
-player.selectVariantTrack(
-tracks.find(t=>t.id==e.target.value),
-true
-);
-};
-
-}
-
-/* Fullscreen fallback */
-document.addEventListener("click",fullscreen,{once:true});
-document.addEventListener("touchstart",fullscreen,{once:true});
 
 /* Disable right click */
 document.addEventListener("contextmenu",e=>e.preventDefault());
 
-init();
+
+async function initPlayer(){
+
+    const video=document.getElementById("video");
+    const loader=document.getElementById("loader");
+    const status=document.getElementById("status");
+
+    shaka.polyfill.installAll();
+
+    if(!shaka.Player.isBrowserSupported()){
+        status.textContent="Browser not supported";
+        return;
+    }
+
+    const player=new shaka.Player(video);
+    new shaka.ui.Overlay(player, document.getElementById('player-container'), video);
+
+    player.configure({
+
+        streaming:{
+            bufferingGoal:25,
+            rebufferingGoal:1,
+            bufferBehind:40,
+            lowLatencyMode:true,
+            stallEnabled:true,
+
+            retryParameters:{
+                maxAttempts:6,
+                baseDelay:1000,
+                backoffFactor:2,
+                fuzzFactor:.5
+            }
+        },
+
+        abr:{
+            enabled:true,
+            switchInterval:3
+        },
+
+        manifest:{
+            dash:{
+                ignoreMinBufferTime:true
+            }
+        },
+
+        drm:{
+            clearKeys:{
+              'dc9ab6bff6028c1685847a104e2d5a21':'de34baecf3f167ad1c847836397d38ca'
+            }
+        }
+
+    });
+
+    async function loadStream(){
+
+        try{
+            loader.style.display="block";
+            status.textContent="Loading stream...";
+
+            await player.load(streamUrl);
+
+            loader.style.display="none";
+            status.textContent="LIVE";
+
+            video.muted=false;
+
+            try{
+                await video.play();
+            }catch{
+                video.muted=true;
+                await video.play();
+            }
+
+            fullscreen();
+
+        }catch(err){
+
+            status.textContent="Reconnecting...";
+            console.log("Reconnect attempt...");
+
+            setTimeout(loadStream,3000);
+        }
+    }
+
+    loadStream();
+
+    /* Auto reconnect if stream drops */
+    player.addEventListener('error',()=>{
+        status.textContent="Stream interrupted... reconnecting";
+        loadStream();
+    });
+
+}
+
+/* Gesture fullscreen */
+document.addEventListener("click", fullscreen, {once:true});
+document.addEventListener("touchstart", fullscreen, {once:true});
+
+/* Double click fullscreen */
+document.addEventListener("dblclick", fullscreen);
+
+
+document.addEventListener('DOMContentLoaded', initPlayer);
 
 </script>
 
