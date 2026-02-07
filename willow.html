@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>IPTV Ultra Player</title>
+<title>Netflix Style IPTV</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.min.css"/>
@@ -14,14 +14,16 @@
 html,body{
 margin:0;
 height:100%;
-background:black;
-overflow:hidden;
+background:#000;
 font-family:Arial;
+overflow:hidden;
 }
 
+/* PLAYER */
 #player-container{
 position:fixed;
 inset:0;
+z-index:1;
 }
 
 video{
@@ -30,7 +32,64 @@ height:100%;
 object-fit:cover;
 }
 
-/* Loader */
+/* DARK GRADIENT */
+.overlay{
+position:absolute;
+bottom:0;
+width:100%;
+height:40%;
+background:linear-gradient(transparent, black);
+z-index:2;
+pointer-events:none;
+}
+
+/* CHANNEL ROW */
+#content{
+position:absolute;
+bottom:40px;
+left:40px;
+right:40px;
+z-index:5;
+color:white;
+}
+
+.row-title{
+font-size:22px;
+margin-bottom:10px;
+}
+
+/* CARD STRIP */
+.card-row{
+display:flex;
+gap:14px;
+overflow-x:auto;
+scroll-behavior:smooth;
+}
+
+.card{
+min-width:180px;
+height:100px;
+background:#111;
+border-radius:10px;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:.25s;
+border:2px solid transparent;
+}
+
+.card img{
+max-width:80%;
+max-height:80%;
+}
+
+.card:hover{
+transform:scale(1.15);
+border:2px solid white;
+}
+
+/* LOADER */
 #loader{
 position:absolute;
 top:50%;
@@ -42,59 +101,35 @@ border-radius:50%;
 width:65px;
 height:65px;
 animation:spin 1s linear infinite;
-z-index:999;
+z-index:10;
 }
 
 @keyframes spin{
 to{transform:translate(-50%,-50%) rotate(360deg);}
 }
 
-/* Logo */
-#logo{
-position:absolute;
-top:15px;
-left:20px;
-z-index:999;
-}
-
-#logo img{
-width:120px;
-opacity:.9;
-}
-
-/* Status */
+/* STATUS */
 #status{
 position:absolute;
-bottom:20px;
+top:20px;
 left:20px;
 color:white;
+z-index:10;
 font-size:14px;
 opacity:.8;
 }
 
-/* Channel Buttons */
-#channels{
+/* LOGO */
+#logo{
 position:absolute;
-right:20px;
-top:50%;
-transform:translateY(-50%);
-z-index:999;
-display:flex;
-flex-direction:column;
-gap:10px;
+top:20px;
+right:25px;
+z-index:10;
 }
 
-.channel-btn{
-background:rgba(0,0,0,.6);
-color:white;
-border:1px solid rgba(255,255,255,.2);
-padding:8px 12px;
-cursor:pointer;
-border-radius:6px;
-}
-
-.channel-btn:hover{
-background:rgba(255,255,255,.2);
+#logo img{
+width:110px;
+opacity:.9;
 }
 
 </style>
@@ -103,8 +138,8 @@ background:rgba(255,255,255,.2);
 <body>
 
 <div id="player-container">
-
 <div id="loader"></div>
+<div id="status">Starting player...</div>
 
 <div id="logo">
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
@@ -112,75 +147,44 @@ background:rgba(255,255,255,.2);
 
 <video id="video" autoplay playsinline></video>
 
-<div id="status">Starting IPTV...</div>
+<div class="overlay"></div>
 
-<!-- Example Channel Switch -->
-<div id="channels">
-<button class="channel-btn" onclick="switchChannel(0)">Channel 1</button>
-<button class="channel-btn" onclick="switchChannel(1)">Channel 2</button>
+<!-- CHANNEL UI -->
+<div id="content">
+<div class="row-title">Live Channels</div>
+<div class="card-row" id="channels"></div>
 </div>
 
 </div>
 
 <script>
 
-const channels = [
+const channelList=[
 
 {
-name:"Channel 1",
+name:"Sports Live",
+logo:"https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
 url:"https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/feh5lmnfkl/out/v1/2f30a0bcdbc64a09b2e101d0b71ed290/cenc.mpd",
-clearKey:{
+keys:{
 'dc9ab6bff6028c1685847a104e2d5a21':'de34baecf3f167ad1c847836397d38ca'
 }
 },
 
-{
-name:"Channel 2",
-url:"PUT_SECOND_STREAM_HERE",
-clearKey:{
-'KEY':'KEY'
-}
-}
+// ADD MORE CHANNELS HERE
 
 ];
 
 let player;
 let video=document.getElementById("video");
+let current=0;
 
+/* FULLSCREEN */
 function fullscreen(){
-const el=document.getElementById("player-container");
+const el=document.documentElement;
 if(el.requestFullscreen) el.requestFullscreen();
 }
 
-/* Hide cursor */
-let cursorTimer;
-document.addEventListener("mousemove",()=>{
-document.body.style.cursor="default";
-
-clearTimeout(cursorTimer);
-cursorTimer=setTimeout(()=>{
-document.body.style.cursor="none";
-},2000);
-});
-
-/* Keyboard controls */
-document.addEventListener("keydown",(e)=>{
-
-if(e.key==="f") fullscreen();
-
-if(e.key==="m") video.muted=!video.muted;
-
-if(e.key==="p"){
-if(document.pictureInPictureElement){
-document.exitPictureInPicture();
-}else{
-video.requestPictureInPicture();
-}
-}
-
-});
-
-/* Init */
+/* INIT PLAYER */
 async function init(){
 
 shaka.polyfill.installAll();
@@ -192,115 +196,101 @@ document.getElementById('player-container'),
 video);
 
 player.configure({
-
 streaming:{
 bufferingGoal:30,
 rebufferingGoal:1,
 bufferBehind:60,
-lowLatencyMode:true,
-retryParameters:{
-maxAttempts:5,
-baseDelay:1000
+lowLatencyMode:true
 }
-},
-
-abr:{
-enabled:true,
-switchInterval:2
-}
-
 });
 
-switchChannel(0);
+buildUI();
+loadChannel(0);
 
-/* Auto reconnect */
+/* reconnect */
 player.addEventListener('error',()=>{
 document.getElementById("status").innerText="Reconnecting...";
-setTimeout(()=>switchChannel(currentChannel),2000);
+setTimeout(()=>loadChannel(current),2000);
 });
 
 }
 
-let currentChannel=0;
+/* BUILD NETFLIX UI */
+function buildUI(){
 
-async function switchChannel(index){
+const container=document.getElementById("channels");
 
-currentChannel=index;
+channelList.forEach((ch,i)=>{
 
-const ch=channels[index];
+const card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`<img src="${ch.logo}">`;
+
+card.onclick=()=>loadChannel(i);
+
+container.appendChild(card);
+
+});
+
+}
+
+/* LOAD CHANNEL */
+async function loadChannel(index){
+
+current=index;
+
+const ch=channelList[index];
 
 document.getElementById("loader").style.display="block";
-document.getElementById("status").innerText="Switching to "+ch.name;
+document.getElementById("status").innerText="Loading "+ch.name;
 
 try{
 
 player.configure({
-drm:{clearKeys:ch.clearKey}
+drm:{clearKeys:ch.keys}
 });
 
 await player.load(ch.url);
 
+video.play();
+
 document.getElementById("loader").style.display="none";
 document.getElementById("status").innerText="LIVE • "+ch.name;
 
-video.play();
-
 fullscreen();
 
-loadQualitySelector();
-
 }catch{
-document.getElementById("status").innerText="Stream failed... retrying";
-setTimeout(()=>switchChannel(index),3000);
-}
+
+document.getElementById("status").innerText="Retrying...";
+setTimeout(()=>loadChannel(index),3000);
 
 }
 
-/* QUALITY SELECTOR */
-function loadQualitySelector(){
-
-const tracks=player.getVariantTracks();
-
-if(!tracks.length) return;
-
-let menu=document.getElementById("quality");
-
-if(!menu){
-
-menu=document.createElement("select");
-menu.id="quality";
-menu.style.position="absolute";
-menu.style.bottom="20px";
-menu.style.right="20px";
-menu.style.zIndex="999";
-
-document.getElementById("player-container").appendChild(menu);
 }
 
-menu.innerHTML="";
+/* KEYBOARD CONTROL */
+document.addEventListener("keydown",(e)=>{
 
-tracks.forEach(track=>{
-const opt=document.createElement("option");
-opt.value=track.id;
-opt.innerText=track.height+"p";
-menu.appendChild(opt);
+if(e.key==="ArrowRight"){
+current=(current+1)%channelList.length;
+loadChannel(current);
+}
+
+if(e.key==="ArrowLeft"){
+current=(current-1+channelList.length)%channelList.length;
+loadChannel(current);
+}
+
+if(e.key==="f") fullscreen();
+
 });
 
-menu.onchange=(e)=>{
-player.selectVariantTrack(
-tracks.find(t=>t.id==e.target.value),
-true
-);
-};
-
-}
-
-/* Fullscreen fallback */
-document.addEventListener("click",fullscreen,{once:true});
-document.addEventListener("touchstart",fullscreen,{once:true});
-
-/* Disable right click */
+/* disable right click */
 document.addEventListener("contextmenu",e=>e.preventDefault());
+
+/* fullscreen fallback */
+document.addEventListener("click",fullscreen,{once:true});
 
 init();
 
