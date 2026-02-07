@@ -1,136 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Shaka Player Fullscreen</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Shaka Player -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.compiled.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.css" />
+<title>Ultra Player</title>
 
-  <style>
-    body {
-      margin: 0;
-      background: #000;
-      font-family: Arial, sans-serif;
-    }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.min.css"/>
 
-    #player-container {
-      position: relative;
-      width: 100%;
-      max-width: 960px;
-      margin: auto;
-      aspect-ratio: 16 / 9;
-      background: black;
-    }
+<style>
 
-    video {
-      width: 100%;
-      height: 100%;
-    }
+html, body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:black;
+  overflow:hidden;
+  font-family:Arial;
+}
 
-    #status-message {
-      color: #0f0;
-      text-align: center;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-  </style>
+/* PLAYER */
+#player-container{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  background:black;
+}
+
+video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:black;
+}
+
+/* Loader */
+#loader{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  border:6px solid #222;
+  border-top:6px solid #fff;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  animation:spin 1s linear infinite;
+  z-index:9999;
+}
+
+@keyframes spin{
+  to{ transform:translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Watermark */
+#watermark{
+  position:absolute;
+  top:15px;
+  right:20px;
+  z-index:999;
+  opacity:.85;
+}
+
+#watermark img{
+  width:120px;
+}
+
+/* Status */
+#status{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  color:white;
+  font-size:14px;
+  opacity:.7;
+}
+
+</style>
 </head>
 
 <body>
 
-  <div id="player-container">
-    <video id="video" class="shaka-video" playsinline></video>
-  </div>
+<div id="player-container">
+    <div id="loader"></div>
 
-  <div id="status-message">Loading stream…</div>
+    <!-- CHANGE LOGO HERE -->
+    <div id="watermark">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
+    </div>
 
-  <script>
-    async function initPlayer() {
-      const video = document.getElementById('video');
-      const container = document.getElementById('player-container');
-      const status = document.getElementById('status-message');
+    <video id="video" autoplay playsinline></video>
 
-      shaka.polyfill.installAll();
+    <div id="status">Initializing player...</div>
+</div>
 
-      if (!shaka.Player.isBrowserSupported()) {
-        status.textContent = "❌ Browser not supported";
+
+<script>
+
+const streamUrl =
+"https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/dash/enc/feh5lmnfkl/out/v1/2f30a0bcdbc64a09b2e101d0b71ed290/cenc.mpd";
+
+
+function fullscreen(){
+    const elem=document.getElementById("player-container");
+
+    if(elem.requestFullscreen) elem.requestFullscreen();
+    else if(elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+}
+
+/* Cursor hide */
+let cursorTimer;
+document.addEventListener("mousemove",()=>{
+    document.body.style.cursor="default";
+
+    clearTimeout(cursorTimer);
+    cursorTimer=setTimeout(()=>{
+        document.body.style.cursor="none";
+    },2000);
+});
+
+/* Disable right click */
+document.addEventListener("contextmenu",e=>e.preventDefault());
+
+
+async function initPlayer(){
+
+    const video=document.getElementById("video");
+    const loader=document.getElementById("loader");
+    const status=document.getElementById("status");
+
+    shaka.polyfill.installAll();
+
+    if(!shaka.Player.isBrowserSupported()){
+        status.textContent="Browser not supported";
         return;
-      }
-
-      // Create player
-      const player = new shaka.Player(video);
-
-      // Create UI (THIS enables fullscreen properly)
-      const ui = new shaka.ui.Overlay(player, container, video);
-      const controls = ui.getControls();
-
-      // UI configuration (includes fullscreen button)
-      ui.configure({
-        controlPanelElements: [
-          'play_pause',
-          'time_and_duration',
-          'spacer',
-          'mute',
-          'volume',
-          'fullscreen'
-        ],
-        addSeekBar: true
-      });
-
-      // Player config
-      player.configure({
-        streaming: {
-          bufferingGoal: 10,
-          rebufferingGoal: 2,
-          lowLatencyMode: true
-        },
-        manifest: {
-          dash: {
-            ignoreMinBufferTime: true
-          }
-        },
-        drm: {
-          clearKeys: {
-            '1e23e51b09a67b83813c17049870bcd4':
-            'c3d6288e378b0dc55320fd0e6fd2e55f'
-          }
-        }
-      });
-
-      const streamUrl =
-        "https://neacdnpop3-edge02.aws.playco.com/live/eds/CricLife1/DASH/CricLife1.mpd";
-
-      try {
-        await player.load(streamUrl);
-        status.textContent = "✅ Stream loaded";
-
-        // Autoplay handling
-        try {
-          video.muted = false;
-          await video.play();
-        } catch {
-          video.muted = true;
-          await video.play();
-        }
-      } catch (err) {
-        console.error(err);
-        status.textContent = "⚠️ Stream failed to load";
-      }
-
-      // Error handling
-      player.addEventListener('error', e => {
-        console.error('Shaka error', e.detail);
-        status.textContent = "⚠️ Playback error";
-      });
     }
 
-    document.addEventListener('DOMContentLoaded', initPlayer);
-  </script>
+    const player=new shaka.Player(video);
+    new shaka.ui.Overlay(player, document.getElementById('player-container'), video);
 
-  <!-- Optional: disable devtools -->
-  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest"></script>
+    player.configure({
+
+        streaming:{
+            bufferingGoal:25,
+            rebufferingGoal:1,
+            bufferBehind:40,
+            lowLatencyMode:true,
+            stallEnabled:true,
+
+            retryParameters:{
+                maxAttempts:6,
+                baseDelay:1000,
+                backoffFactor:2,
+                fuzzFactor:.5
+            }
+        },
+
+        abr:{
+            enabled:true,
+            switchInterval:3
+        },
+
+        manifest:{
+            dash:{
+                ignoreMinBufferTime:true
+            }
+        },
+
+        drm:{
+            clearKeys:{
+              'dc9ab6bff6028c1685847a104e2d5a21':'de34baecf3f167ad1c847836397d38ca'
+            }
+        }
+
+    });
+
+    async function loadStream(){
+
+        try{
+            loader.style.display="block";
+            status.textContent="Loading stream...";
+
+            await player.load(streamUrl);
+
+            loader.style.display="none";
+            status.textContent="LIVE";
+
+            video.muted=false;
+
+            try{
+                await video.play();
+            }catch{
+                video.muted=true;
+                await video.play();
+            }
+
+            fullscreen();
+
+        }catch(err){
+
+            status.textContent="Reconnecting...";
+            console.log("Reconnect attempt...");
+
+            setTimeout(loadStream,3000);
+        }
+    }
+
+    loadStream();
+
+    /* Auto reconnect if stream drops */
+    player.addEventListener('error',()=>{
+        status.textContent="Stream interrupted... reconnecting";
+        loadStream();
+    });
+
+}
+
+/* Gesture fullscreen */
+document.addEventListener("click", fullscreen, {once:true});
+document.addEventListener("touchstart", fullscreen, {once:true});
+
+/* Double click fullscreen */
+document.addEventListener("dblclick", fullscreen);
+
+
+document.addEventListener('DOMContentLoaded', initPlayer);
+
+</script>
 
 </body>
 </html>
