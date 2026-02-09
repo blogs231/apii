@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Multi Channel Ultra Player</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.min.css"/>
+
+<style>
+
+html,body{
+margin:0;
+height:100%;
+background:black;
+overflow:hidden;
+font-family:Arial;
+}
+
+/* PLAYER */
+#player-container{
+position:fixed;
+inset:0;
+}
+
+video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* CHANNEL BAR */
+#channel-bar{
+position:absolute;
+top:0;
+left:0;
+right:0;
+display:flex;
+gap:10px;
+padding:10px;
+background:linear-gradient(rgba(0,0,0,.8),transparent);
+z-index:5;
+overflow-x:auto;
+}
+
+.channel{
+background:rgba(255,255,255,.1);
+border:1px solid rgba(255,255,255,.2);
+padding:6px 12px;
+color:white;
+cursor:pointer;
+border-radius:6px;
+white-space:nowrap;
+transition:.2s;
+}
+
+.channel:hover{
+background:white;
+color:black;
+}
+
+/* Loader */
+#loader{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+border:6px solid #222;
+border-top:6px solid #fff;
+border-radius:50%;
+width:60px;
+height:60px;
+animation:spin 1s linear infinite;
+z-index:10;
+}
+
+@keyframes spin{
+to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+/* Status */
+#status{
+position:absolute;
+bottom:20px;
+left:20px;
+color:white;
+opacity:.8;
+z-index:10;
+}
+
+/* Logo */
+#logo{
+position:absolute;
+top:60px;
+right:20px;
+z-index:10;
+}
+
+#logo img{
+width:110px;
+opacity:.9;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="player-container">
+
+<div id="channel-bar"></div>
+
+<div id="loader"></div>
+
+<div id="status">Starting player...</div>
+
+<div id="logo">
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
+</div>
+
+<video id="video" autoplay playsinline></video>
+
+</div>
+
+<script>
+
+/* ⭐ ADD CHANNELS HERE */
+const channels=[
+
+{
+name:"Hub Sports 4",
+url:"https://co2-bks400-04.starhubgo.com/bpk-token/1ab@peqxdamwa4oaqt0aukpgraphaqdb23aap0m2oyaa/bpk-tv/HubSports4HDnew/output/manifest.mpd",
+keys:{
+'9a29d4f3b6e540b3aa2f36927c01b6f4':'57b670b45b5cb453a9f48fa975b702c1'
+}
+},
+
+{
+name:"Sample Channel",
+url:"PUT_MPD_HERE",
+keys:{
+'KEYID':'KEY'
+}
+}
+
+];
+
+let player;
+let video=document.getElementById("video");
+let currentIndex=0;
+
+/* FULLSCREEN */
+function fullscreen(){
+const el=document.documentElement;
+if(el.requestFullscreen) el.requestFullscreen();
+}
+
+/* INIT PLAYER */
+async function init(){
+
+shaka.polyfill.installAll();
+
+if(!shaka.Player.isBrowserSupported()){
+alert("Browser not supported");
+return;
+}
+
+player=new shaka.Player(video);
+
+new shaka.ui.Overlay(player,
+document.getElementById('player-container'),
+video);
+
+player.configure({
+
+streaming:{
+bufferingGoal:30,
+rebufferingGoal:1,
+bufferBehind:60,
+lowLatencyMode:true,
+retryParameters:{
+maxAttempts:5,
+baseDelay:1000
+}
+},
+
+manifest:{
+dash:{ignoreMinBufferTime:true}
+},
+
+abr:{
+enabled:true,
+switchInterval:2
+}
+
+});
+
+/* auto reconnect */
+player.addEventListener('error',()=>{
+document.getElementById("status").innerText="Reconnecting...";
+setTimeout(()=>loadChannel(currentIndex),2000);
+});
+
+buildChannelBar();
+loadChannel(0);
+
+}
+
+/* CHANNEL UI */
+function buildChannelBar(){
+
+const bar=document.getElementById("channel-bar");
+
+channels.forEach((ch,i)=>{
+
+const btn=document.createElement("div");
+btn.className="channel";
+btn.innerText=ch.name;
+
+btn.onclick=()=>loadChannel(i);
+
+bar.appendChild(btn);
+
+});
+
+}
+
+/* LOAD CHANNEL */
+async function loadChannel(index){
+
+currentIndex=index;
+
+const ch=channels[index];
+
+document.getElementById("loader").style.display="block";
+document.getElementById("status").innerText="Loading "+ch.name;
+
+try{
+
+player.configure({
+drm:{clearKeys:ch.keys}
+});
+
+await player.load(ch.url);
+
+video.play();
+
+document.getElementById("loader").style.display="none";
+document.getElementById("status").innerText="LIVE • "+ch.name;
+
+fullscreen();
+
+}catch(err){
+
+document.getElementById("status").innerText="Retrying...";
+setTimeout(()=>loadChannel(index),3000);
+
+}
+
+}
+
+/* KEYBOARD CHANNEL SWITCH */
+document.addEventListener("keydown",(e)=>{
+
+if(e.key==="ArrowRight"){
+currentIndex=(currentIndex+1)%channels.length;
+loadChannel(currentIndex);
+}
+
+if(e.key==="ArrowLeft"){
+currentIndex=(currentIndex-1+channels.length)%channels.length;
+loadChannel(currentIndex);
+}
+
+if(e.key==="f") fullscreen();
+
+});
+
+/* Disable right click */
+document.addEventListener("contextmenu",e=>e.preventDefault());
+
+/* fullscreen fallback */
+document.addEventListener("click",fullscreen,{once:true});
+
+init();
+
+</script>
+
+</body>
+</html>
